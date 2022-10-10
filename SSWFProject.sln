@@ -7,23 +7,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal", "SSWFProject\Porta
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{D40928EF-72DA-4976-8AEF-0B3CBF314C04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{2A8B3F3E-909B-4315-A7D7-D5D0D9A914AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{2A8B3F3E-909B-4315-A7D7-D5D0D9A914AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Tests", "Domain.Tests\Domain.Tests.csproj", "{00F79DFD-6A4F-4099-9FE4-EDF37C942E51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Tests", "Domain.Tests\Domain.Tests.csproj", "{00F79DFD-6A4F-4099-9FE4-EDF37C942E51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainServices", "DomainServices\DomainServices.csproj", "{62F9B40A-020B-442D-AF29-F63AE42E6072}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainServices", "DomainServices\DomainServices.csproj", "{62F9B40A-020B-442D-AF29-F63AE42E6072}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainServices.Tests", "DomainServices.Tests\DomainServices.Tests.csproj", "{471EE788-1721-436C-A842-97DE2D96401D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainServices.Tests", "DomainServices.Tests\DomainServices.Tests.csproj", "{471EE788-1721-436C-A842-97DE2D96401D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{F31054C4-5B3C-4EA5-B1E4-F7C6C9DE9242}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF", "EF\EF.csproj", "{C3A60D45-DDA9-4B70-9972-6CBAFED56000}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EB-EF", "EF\EB-EF.csproj", "{C3A60D45-DDA9-4B70-9972-6CBAFED56000}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF.Tests", "EF.Tests\EF.Tests.csproj", "{B2FAD26D-1E8F-452B-9A41-8354D6A2E5AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EB-EF.Tests", "EF.Tests\EB-EF.Tests.csproj", "{B2FAD26D-1E8F-452B-9A41-8354D6A2E5AD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{892805E4-40F4-4853-93F4-78D6E692D13C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal.Tests", "Portal.Tests\Portal.Tests.csproj", "{68D41DA3-AD40-4EDF-9E7D-D75B6549736D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal.Tests", "Portal.Tests\Portal.Tests.csproj", "{68D41DA3-AD40-4EDF-9E7D-D75B6549736D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
