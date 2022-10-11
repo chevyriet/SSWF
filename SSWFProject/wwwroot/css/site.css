@@ -14,5 +14,14 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    background-color: #eae0d5;
+}
+
+#mainNav {
+    background-color: #386641;
+}
+
+#mainFooter {
+    background-color: #386641;
+    padding: 0;
 }
