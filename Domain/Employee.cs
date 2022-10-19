@@ -1,25 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class Product
+    public class Employee
     {
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; } = null!;
+        public string? FirstName { get; set; }
 
         [Required]
-        public bool ContainsAlcohol { get; set; }
+        public string? LastName { get; set; }
 
         [Required]
-        public string? Image { get; set; }
+        public string? EmployeeNr { get; set; }
 
-        public ICollection<MealBox>? MealBoxes { get; set; }
+        public Cantina Cantina { get; set; } = null!;
     }
 }

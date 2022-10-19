@@ -1,7 +1,13 @@
+using EB_EF;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var ConnectionString = builder.Configuration.GetConnectionString("Default");
+builder.Services.AddDbContext<EBDbContext>(options => options.UseSqlServer(ConnectionString));
 
 var app = builder.Build();
 

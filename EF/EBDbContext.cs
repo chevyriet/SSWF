@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace EB-EF
 {
-    internal class Staff
-    {
-    }
+    internal class EBDbContext
+{
+}
 }
