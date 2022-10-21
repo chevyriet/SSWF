@@ -1,5 +1,5 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
@@ -15,13 +15,146 @@ html {
 
 body {
     background-color: #eae0d5;
+    color: #333333;
+    font-family: source-sans-pro, sans-serif;
+    font-style: normal;
 }
+
+h2 {
+    font-weight: 600;
+}
+
+/*hr styling*/
+hr {
+    color: #766153;
+    height: 2px!important;
+    opacity: 50%!important;
+}
+
+/*nav and footer styling*/
 
 #mainNav {
     background-color: #386641;
 }
 
+#navbarLogo {
+    width: 50px;
+    height: 50px;
+}
+
+#footerLogo {
+    width: 60px;
+    height: 60px;
+}
+
 #mainFooter {
     background-color: #386641;
     padding: 0;
+}
+
+.nav-link {
+    display: inline-block;
+    position: relative;
+    color: white;
+    z-index:1;
+}
+
+.nav-link:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.nav-link:hover {
+    color:white;
+}
+
+.nav-link:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.copyrightcol {
+    background-color: #6A994E;
+    height: 35px;
+    color: white;
+}
+
+/*lightgreen button styling*/
+
+.btn-lightgreen {
+    display: block;
+    background-color: #ADC178;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 5px;
+    border: hidden;
+    color: #333333;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    transition: all .35s;
+}
+
+.btn-lightgreen:before,
+.btn-lightgreen:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: -100%;
+    left: 0;
+    background-color: #386641;
+    z-index:-1;
+    transition: all .35s;
+}
+
+.btn-lightgreen:before {
+    opacity: .5;
+}
+
+.btn-lightgreen:after {
+    transition-delay: .25s;
+}
+
+.btn-lightgreen:hover {
+    color: white;
+    z-index: 1;
+}
+
+.btn-lightgreen:hover:before,
+.btn-lightgreen:hover:after {
+    top: 0;
+}
+
+/*card styling*/
+
+.overview-card p {
+    padding: 0px;
+    margin: 0px;
+}
+
+.overview-card {
+    border: hidden;
+}
+
+.overview-card:hover {
+    cursor: pointer;
+    transform: scale(1.04);
+    transition: 0.3s ease-in-out;
+}
+
+.card-body {
+    background-color: #ADC178;
+}
+
+.card-title {
+    font-weight: 600;
 }

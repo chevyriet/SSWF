@@ -28,8 +28,7 @@ namespace Domain
         public bool IsEighteen { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(18, 6)")]
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
         [Required]
         public MealType Type { get; set; }
