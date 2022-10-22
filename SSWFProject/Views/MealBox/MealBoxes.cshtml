@@ -28,6 +28,7 @@
             @foreach (MealBox m in Model?.MealBoxes ?? Enumerable.Empty<MealBox>()){
                 <div class="col mb-4">
                     <div class="card overview-card h-100 shadow">
+                        <a class="stretched-link" asp-area="" asp-controller="MealBox" asp-action="MealBoxes" asp-route-id="@m.Id"></a>
                         <img src="~/images/box-placeholder-img.png" class="card-img-top" alt="Box Placeholder Image">
                         <div class="card-body">
                             <h5 class="card-title">@m.Name</h5>

@@ -18,7 +18,7 @@ namespace Domain
         public bool ContainsAlcohol { get; set; }
 
         [Required]
-        public string? Image { get; set; }
+        public string? ImgUrl { get; set; }
 
         public ICollection<MealBox>? MealBoxes { get; set; }
     }

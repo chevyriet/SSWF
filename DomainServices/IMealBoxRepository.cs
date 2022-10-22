@@ -10,5 +10,6 @@ namespace DomainServices
     public interface IMealBoxRepository
     {
         IEnumerable<MealBox> Mealboxes { get; }
+        MealBox? GetMealBoxById(int id); 
     }
 }

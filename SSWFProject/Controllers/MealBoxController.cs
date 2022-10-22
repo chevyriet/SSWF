@@ -15,13 +15,23 @@ namespace Portal.Controllers
             _repository = repository;
         }
         
-        public IActionResult MealBoxes()
+        public IActionResult MealBoxes(int? id)
         {
-            var viewModel = new MealBoxViewModel
+            if(id == null)
             {
-                MealBoxes = _repository.Mealboxes,
-            };
-            return View("MealBoxes", viewModel);
+                var viewModel = new MealBoxViewModel
+                {
+                    MealBoxes = _repository.Mealboxes,
+                };
+                return View("MealBoxes", viewModel);
+            }
+            var mealbox = _repository.GetMealBoxById(id.Value);
+            if(mealbox == null)
+            {
+                return NotFound();
+            }
+
+            return View("MealBoxDetail", mealbox);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

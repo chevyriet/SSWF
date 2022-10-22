@@ -20,8 +20,17 @@ body {
     font-style: normal;
 }
 
+h1 {
+    font-weight: 600;
+}
+
 h2 {
     font-weight: 600;
+}
+
+.mealdetail-header {
+    font-weight: 500;
+    margin: 0;
 }
 
 /*hr styling*/
@@ -91,6 +100,7 @@ hr {
 
 .btn-lightgreen {
     display: block;
+    width: 25%;
     background-color: #ADC178;
     text-decoration: none;
     text-align: center;
@@ -134,11 +144,12 @@ hr {
     top: 0;
 }
 
-/*card styling*/
+/*overview card styling*/
 
 .overview-card p {
     padding: 0px;
     margin: 0px;
+    transform: rotate(0);
 }
 
 .overview-card {
@@ -157,4 +168,91 @@ hr {
 
 .card-title {
     font-weight: 600;
+}
+
+/*detail card stylign*/
+
+.detail-card {
+    max-width: 600px;
+    border: hidden;
+    border-radius: 10px 0px 0px 10px !important;
+}
+
+.card-body {
+    height: 100%;
+}
+
+.detail-card-img {
+    width: 200px;
+    height: 130px;
+    border-radius: 7px 0px 0px 7px !important;
+}
+
+/*detailpage styling*/
+
+.reservation-col {
+    background-color: #ADC178;
+    border-radius: 5px;
+}
+
+.reservation-col h5 {
+    padding: 0px;
+    margin: 0;
+}
+
+/*brown button styling*/
+
+.btn-brown {
+    display: block;
+    background-color: #766153;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 5px;
+    border: hidden;
+    color: white;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    transition: all .35s;
+}
+
+.btn-brown:before,
+.btn-brown:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: -100%;
+    left: 0;
+    background-color: #eae0d5;
+    z-index: -1;
+    transition: all .35s;
+}
+
+.btn-brown:before {
+    opacity: .5;
+}
+
+.btn-brown:after {
+    transition-delay: .25s;
+}
+
+.btn-brown:hover {
+    color: #333333;
+    z-index: 1;
+}
+
+.btn-brown:hover:before,
+.btn-brown:hover:after {
+    top: 0;
+}
+
+/*modal styling*/
+
+.modal-content {
+    background-color: #eae0d5;
+}
+
+.modal-body {
+    border-top: 1px solid #766153;
 }
