@@ -11,5 +11,8 @@ namespace DomainServices
     {
         IEnumerable<MealBox> Mealboxes { get; }
         MealBox? GetMealBoxById(int id); 
+
+        IEnumerable<MealBox> GetMealBoxesByStudentId(int studentId);
+
     }
 }

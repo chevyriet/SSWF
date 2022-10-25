@@ -30,5 +30,8 @@ namespace Domain
         [Phone]
         public string? PhoneNumber { get; set; }
 
+        [Required]
+        [EmailAddress]
+        public string? EmailAddress { get; set; }
     }
 }

@@ -33,6 +33,7 @@ namespace Domain
         [Required]
         public MealType Type { get; set; }
 
+        public int? StudentId { get; set; }
         public Student? Student { get; set; }
 
         public Cantina Cantina { get; set; } = null!;

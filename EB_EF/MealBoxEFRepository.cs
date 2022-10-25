@@ -24,5 +24,10 @@ namespace EB_EF
         {
             return _dbContext.MealBoxes.Include(m => m.Products).Include(m => m.Cantina).FirstOrDefault(m => m.Id == id);
         }
+
+        public IEnumerable<MealBox> GetMealBoxesByStudentId(int studentId)
+        {
+            return _dbContext.MealBoxes.Include(m => m.Products).Include(m => m.Cantina).Where(m => m.Student.Id == studentId).ToList();
+        }
     }
 }

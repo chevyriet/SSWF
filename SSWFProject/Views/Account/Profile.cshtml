@@ -1,0 +1,48 @@
+﻿@model ReservedMealBoxesViewModel
+@{
+    ViewData["Title"] = "Profile";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SSWFProject.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://use.typekit.net/esv7sop.css">
+</head>
+<body>
+    <div class="container mt-4" style="min-height:469px">
+        <div class="row justify-content-start me-0">
+            <h1 class="mb-0">@Model.Student?.FirstName @Model.Student?.LastName,</h1>
+            <h2 class="mt-0">@Model.Student?.StudentNr</h2>
+
+            <div class="row">
+                <h2 class="mt-5 mb-0">Gereserveerde Pakketten</h2>
+            </div>
+        </div>
+
+        <hr class="mt-2">
+
+        <div class="row row-cols-1 row-cols-md-3 mt-4">
+            @foreach (MealBox m in Model?.MealBoxes ?? Enumerable.Empty<MealBox>())
+            {
+                <div class="col mb-4">
+                    <div class="card overview-card h-100 shadow">
+                        <a class="stretched-link" asp-area="" asp-controller="MealBox" asp-action="MealBoxes" asp-route-id="@m.Id"></a>
+                        <img src="~/images/box-placeholder-img.png" class="card-img-top" alt="Box Placeholder Image">
+                        <div class="card-body">
+                            <h5 class="card-title">@m.Name</h5>
+                            <p class="card-price-text">Price: € @m.Price.ToString()</p>
+                            <p class="card-location-text">Location: @m.Cantina.City</p>
+                            <p>Ophalen Tot: @m.PickupUntilTime.Value.ToString("MM/dd/yyyy HH:mm")</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

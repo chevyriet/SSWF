@@ -1,5 +1,6 @@
 using DomainServices;
 using EB_EF;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,13 +9,39 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services
     .AddScoped<IMealBoxRepository, MealBoxEFRepository>()
-    .AddScoped<EBSeedData>();
+    .AddScoped<IStudentRepository, StudentEFRepository>()
+    .AddScoped<IEmployeeRepository, EmployeeEFRepository>()
+    .AddScoped<EBSeedData>()
+    .AddScoped<EBIdentitySeedData>()
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+    // EF DB
+    .AddDbContext<EBDbContext>(opts =>
+     {
+         opts
+             .UseSqlServer(builder.Configuration["ConnectionStrings:Default"])
+             .EnableSensitiveDataLogging(true);
+     })
+    // Identity
+    .AddDbContext<EBSecurityDbContext>(opts =>
+    {
+        opts
+            .UseSqlServer(builder.Configuration["ConnectionStrings:Security"])
+            .EnableSensitiveDataLogging(true);
+    })
+    .AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<EBSecurityDbContext>()
+    .AddDefaultTokenProviders();
 
-var ConnectionString = builder.Configuration.GetConnectionString("Default");
-builder.Services.AddDbContext<EBDbContext>(options => options.UseSqlServer(ConnectionString));
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("OnlyEmployeeUsersAndUp", policy => policy
+        .RequireAuthenticatedUser()
+        .RequireClaim("UserType", "employeeuser"));
+
+    options.AddPolicy("OnlyStudentUsersAndUp", policy => policy
+        .RequireAuthenticatedUser()
+        .RequireClaim("UserType", "studentuser", "employeeuser"));
+});
 
 var app = builder.Build();
 
@@ -36,6 +63,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -50,4 +78,7 @@ async Task SeedDatabase()
     using var scope = app.Services.CreateScope();
     var dbSeeder = scope.ServiceProvider.GetRequiredService<EBSeedData>();
     await dbSeeder.EnsurePopulated(true);
+
+    var dbIdentitySeeder = scope.ServiceProvider.GetRequiredService<EBIdentitySeedData>();
+    await dbIdentitySeeder.EnsurePopulated(true);
 }

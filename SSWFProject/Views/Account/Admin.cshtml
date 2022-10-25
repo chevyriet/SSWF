@@ -1,0 +1,158 @@
+﻿@model EmployeeViewModel
+@{
+    ViewData["Title"] = "Admin";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SSWFProject.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://use.typekit.net/esv7sop.css">
+</head>
+<body>
+    <div class="container mt-4" style="min-height:469px">
+        <div class="row justify-content-start me-0">
+            <div class="col col-lg-5">
+                <h1 class="mb-0">Welkom, @Model?.Employee?.FirstName @Model?.Employee?.LastName</h1>
+                <h2>(@Model?.Employee?.EmployeeNr)</h2>
+                <p>
+                    Dit is uw persoonlijke beheerpagina, waarop u pakketten kan zien in een overzicht, aanmaken, wijzigen en verwijderen door op
+                    de respectievelijke buttons de klikken op de cards.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <h2 class="mt-4 mb-0">Beschikbare Pakketten</h2>
+        </div>
+
+        <hr class="mt-3">
+
+        <div class="row row-cols-1 row-cols-md-2 mt-2">
+            @foreach (MealBox m in Model?.MealBoxes ?? Enumerable.Empty<MealBox>())
+            {
+                @if(m.StudentId == null){
+                    <div class="card admin-card p-0 m-3 h-100 shadow">
+                        <a class="stretched-link" asp-area="" asp-controller="MealBox" asp-action="MealBoxes" asp-route-id="@m.Id"></a>
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="@Url.Content("~/images/box-placeholder-img.png")" class="img-fluid rounded-start admin-card-img" alt="Box Placeholder Image">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col col-md-10">
+                                            <h4 class="card-title mb-1">@m.Name</h4>
+                                            <p>Prijs: € @m.Price.ToString()</p>
+                                            <p>Locatie: @m.Cantina.City</p>
+                                            <p>Ophalen Tot: @m.PickupUntilTime.Value.ToString("MM/dd/yyyy HH:mm")</p>
+                                        </div>
+                                        <div class="col col-md-1 d-flex justify-content-end my-auto">
+                                            <a class="btn admin-crud-icon" asp-area="" asp-controller="Account" asp-action="Login"><i class="bi bi-trash" style="font-size: 25px; color: #333333;"></i></a>
+                                        </div>
+                                        <div class="col col-md-1 d-flex justify-content-end my-auto">
+                                            <a class="btn admin-crud-icon" asp-area="" asp-controller="Account" asp-action="Login"><i class="bi bi-pencil-square" style="font-size: 25px; color: #333333;"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        <div class="row">
+            <h2 class="mt-4 mb-0">Gereserveerde Pakketten</h2>
+        </div>
+
+        <hr class="mt-3">
+
+        <div class="row row-cols-1 row-cols-md-2 mt-2">
+            @foreach (MealBox m in Model?.MealBoxes ?? Enumerable.Empty<MealBox>())
+            {
+                @if (m.StudentId != null)
+                {
+                    <div class="card admin-card p-0 m-3 h-100 shadow">
+                        <a class="stretched-link" asp-area="" asp-controller="MealBox" asp-action="MealBoxes" asp-route-id="@m.Id"></a>
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="@Url.Content("~/images/box-placeholder-img.png")" class="img-fluid rounded-start admin-card-img" alt="Box Placeholder Image">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-1">@m.Name</h4>
+                                    <p>Prijs: € @m.Price.ToString()</p>
+                                    <p>Locatie: @m.Cantina.City</p>
+                                    <p>Ophalen Tot: @m.PickupUntilTime.Value.ToString("MM/dd/yyyy HH:mm")</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        <hr class="mt-5" />
+
+        <div class="row create-form-row shadow mt-5">
+            <h2 class="m-2">Aanmaken Pakket</h2>
+            <div class="row create-form-row-inner m-2">
+                <div class="col md-6">
+                    <form asp-action="CreateMealBox" asp-controller="MealBox" method="post" class="row gy-2">
+                        <div class="col-md-6">
+                            <label for="inputName" class="form-label">Naam</label>
+                            <input type="text" class="form-control" id="inputName" placeholder="Typ hier...">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputPrice" class="form-label">Prijs</label>
+                            <input type="number" class="form-control" id="inputPrice" placeholder="Typ hier...">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="citySelect" class="form-label">Stad</label>
+                            <select class="form-select" id="citySelect" disabled>
+                                <option selected="selected" value="">@Model?.Employee?.Cantina.City</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="cantinaSelect" class="form-label">Kantine</label>
+                            <select class="form-select" id="cantinaSelect" disabled>
+                                <option selected="selected" value="">@Model?.Employee?.Cantina.Location</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="PickupDate" class="form-label">Ophaal Datum en Tijd</label>
+                            <input class="form-control" type="datetime-local" id="PickupDate" max="@DateTime.Now.AddDays(2).ToString("yyyy’-‘MM’-‘dd’T’HH’:’mm’:’ss")">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="MealType" class="form-label">Type Maaltijd</label>
+                            <select class="form-select" asp-items="Html.GetEnumSelectList<MealType>()" id="MealType">
+                                <option selected="selected" value="">Selecteer maaltijdtype</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    18+
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <button type="submit" class="btn btn-brown">Aanmaken</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col md-6">
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

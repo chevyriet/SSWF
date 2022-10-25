@@ -4,6 +4,7 @@ using EB_EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EB_EF.Migrations
 {
     [DbContext(typeof(EBDbContext))]
-    partial class EBDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221025085749_MBStudentChange")]
+    partial class MBStudentChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +44,7 @@ namespace EB_EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cantinas", (string)null);
+                    b.ToTable("Cantinas");
                 });
 
             modelBuilder.Entity("Domain.Employee", b =>
@@ -72,7 +74,7 @@ namespace EB_EF.Migrations
 
                     b.HasIndex("CantinaId");
 
-                    b.ToTable("Employees", (string)null);
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("Domain.MealBox", b =>
@@ -119,7 +121,7 @@ namespace EB_EF.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("MealBoxes", (string)null);
+                    b.ToTable("MealBoxes");
                 });
 
             modelBuilder.Entity("Domain.Product", b =>
@@ -143,7 +145,7 @@ namespace EB_EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Domain.Student", b =>
@@ -182,7 +184,7 @@ namespace EB_EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Students", (string)null);
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("MealBoxProduct", b =>
@@ -197,7 +199,7 @@ namespace EB_EF.Migrations
 
                     b.HasIndex("ProductsId");
 
-                    b.ToTable("MealBoxProduct", (string)null);
+                    b.ToTable("MealBoxProduct");
                 });
 
             modelBuilder.Entity("Domain.Employee", b =>

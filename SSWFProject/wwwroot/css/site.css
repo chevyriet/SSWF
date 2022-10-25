@@ -256,3 +256,48 @@ hr {
 .modal-body {
     border-top: 1px solid #766153;
 }
+
+/*logincard styling*/
+
+.logincard {
+    border: hidden !important;
+}
+
+.logincard-body {
+    border-radius: 5px !important;
+}
+
+/*admin page styling*/
+.admin-card {
+    max-width: 600px;
+    border: hidden;
+    border-radius: 10px 0px 0px 10px !important;
+}
+
+.admin-card-img {
+    width: 200px;
+    height: 100%;
+    border-radius: 7px 0px 0px 7px !important;
+}
+
+.admin-card p {
+    margin: 0;
+    padding: 0px;
+}
+
+.admin-card:hover {
+    cursor: pointer;
+    transform: scale(1.04);
+    transition: 0.3s ease-in-out;
+}
+
+.admin-crud-icon {
+    z-index: 1;
+}
+
+.create-form-row {
+    border: 2px solid #766153;
+    border-radius: 5px;
+    margin: 0;
+    background-color: #ADC178;
+}
