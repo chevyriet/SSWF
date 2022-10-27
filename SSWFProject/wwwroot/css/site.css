@@ -292,12 +292,28 @@ hr {
 }
 
 .admin-crud-icon {
-    z-index: 1;
+    z-index: 1 !important;
+    position:relative;
 }
 
 .create-form-row {
-    border: 2px solid #766153;
+    border: hidden;
     border-radius: 5px;
     margin: 0;
     background-color: #ADC178;
 }
+
+.product-container {
+    border: hidden;
+    border-radius: 5px;
+    margin: 0px;
+    overflow-y: scroll;
+    max-height: 235px;
+    background-color: #6A994E;
+}
+
+.productpicker-card {
+    border: hidden !important;
+    background-color: #6A994E!important;
+}
+

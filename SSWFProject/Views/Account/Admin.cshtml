@@ -23,6 +23,7 @@
                     Dit is uw persoonlijke beheerpagina, waarop u pakketten kan zien in een overzicht, aanmaken, wijzigen en verwijderen door op
                     de respectievelijke buttons de klikken op de cards.
                 </p>
+                <a class="btn btn-brown" asp-area="" asp-controller="MealBox" asp-action="Create">Aanmaken Pakket</a>
             </div>
         </div>
 
@@ -52,10 +53,12 @@
                                             <p>Ophalen Tot: @m.PickupUntilTime.Value.ToString("MM/dd/yyyy HH:mm")</p>
                                         </div>
                                         <div class="col col-md-1 d-flex justify-content-end my-auto">
-                                            <a class="btn admin-crud-icon" asp-area="" asp-controller="Account" asp-action="Login"><i class="bi bi-trash" style="font-size: 25px; color: #333333;"></i></a>
+                                            <form asp-area="" asp-controller="MealBox" asp-action="MealBox" method="post" asp-route-id="@m.Id">
+                                                <button type="submit" class="btn admin-crud-icon"><i class="bi bi-trash" style="font-size: 25px; color: #333333;"></i></button>
+                                            </form>
                                         </div>
                                         <div class="col col-md-1 d-flex justify-content-end my-auto">
-                                            <a class="btn admin-crud-icon" asp-area="" asp-controller="Account" asp-action="Login"><i class="bi bi-pencil-square" style="font-size: 25px; color: #333333;"></i></a>
+                                            <a class="btn admin-crud-icon" asp-area="" asp-controller="MealBox" asp-action="Edit" asp-route-id="@m.Id"><i class="bi bi-pencil-square" style="font-size: 25px; color: #333333;"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -95,62 +98,6 @@
                     </div>
                 }
             }
-        </div>
-
-        <hr class="mt-5" />
-
-        <div class="row create-form-row shadow mt-5">
-            <h2 class="m-2">Aanmaken Pakket</h2>
-            <div class="row create-form-row-inner m-2">
-                <div class="col md-6">
-                    <form asp-action="CreateMealBox" asp-controller="MealBox" method="post" class="row gy-2">
-                        <div class="col-md-6">
-                            <label for="inputName" class="form-label">Naam</label>
-                            <input type="text" class="form-control" id="inputName" placeholder="Typ hier...">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputPrice" class="form-label">Prijs</label>
-                            <input type="number" class="form-control" id="inputPrice" placeholder="Typ hier...">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="citySelect" class="form-label">Stad</label>
-                            <select class="form-select" id="citySelect" disabled>
-                                <option selected="selected" value="">@Model?.Employee?.Cantina.City</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="cantinaSelect" class="form-label">Kantine</label>
-                            <select class="form-select" id="cantinaSelect" disabled>
-                                <option selected="selected" value="">@Model?.Employee?.Cantina.Location</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="PickupDate" class="form-label">Ophaal Datum en Tijd</label>
-                            <input class="form-control" type="datetime-local" id="PickupDate" max="@DateTime.Now.AddDays(2).ToString("yyyy’-‘MM’-‘dd’T’HH’:’mm’:’ss")">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="MealType" class="form-label">Type Maaltijd</label>
-                            <select class="form-select" asp-items="Html.GetEnumSelectList<MealType>()" id="MealType">
-                                <option selected="selected" value="">Selecteer maaltijdtype</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    18+
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-12 mt-3">
-                            <button type="submit" class="btn btn-brown">Aanmaken</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="col md-6">
-                    
-                </div>
-            </div>
         </div>
 
     </div>

@@ -11,6 +11,7 @@ builder.Services
     .AddScoped<IMealBoxRepository, MealBoxEFRepository>()
     .AddScoped<IStudentRepository, StudentEFRepository>()
     .AddScoped<IEmployeeRepository, EmployeeEFRepository>()
+    .AddScoped<IProductRepository, ProductEFRepository>()
     .AddScoped<EBSeedData>()
     .AddScoped<EBIdentitySeedData>()
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace EB_EF
 
         public Employee? GetEmployeeByNr(string EmployeeNr)
         {
-            return _dbContext.Employees.FirstOrDefault(e => e.EmployeeNr == EmployeeNr);
+            return _dbContext.Employees.Include(e => e.Cantina).FirstOrDefault(e => e.EmployeeNr == EmployeeNr);
         }
     }
 }

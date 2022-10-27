@@ -1,0 +1,123 @@
+﻿@model CreateUpdateMealBoxViewModel
+@{
+    ViewData["Title"] = "Edit MealBox";
+    int productCount = 0;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SSWFProject.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://use.typekit.net/esv7sop.css">
+</head>
+<body>
+    <div class="container mt-4" style="min-height:469px">
+        <div class="row justify-content-start me-0">
+            <div class="col col-lg-5">
+                <h1 class="mb-0">Wijzigen Pakket</h1>
+                <p>
+                    Op deze pagina kunt u een bestaand pakket wijzigen door de benodigde informatie in het formulier in te vullen en op de "wijzigen" knop te klikken.
+                </p>
+                <a class="btn btn-lightgreen" asp-area="" asp-controller="Account" asp-action="Admin" style="width: 25%;">Terug</a>
+            </div>
+        </div>
+
+        <hr class="mt-3" />
+
+        <div class="row create-form-row shadow mt-5">
+            <h2 class="m-2">Wijzigen Pakket</h2>
+            <div class="row create-form-row-inner m-2">
+                <form asp-action="Edit" asp-controller="MealBox" method="post" class="row gy-2">
+                    <div class="col md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="@Model.MealBox.Name" class="form-label mb-0 pb-0">Naam</label>
+                                <input asp-for="@Model.MealBox.Name" type="text" class="form-control" placeholder="Typ hier...">
+                                <input asp-for="@Model.MealBox.Id" type="hidden" class="form-control" placeholder="Typ hier...">
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="@Model.MealBox.Price" class="form-label mb-0 pb-0">Prijs</label>
+                                <input asp-for="@Model.MealBox.Price" class="form-control" placeholder="Typ hier...">
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="@Model.MealBox.City" class="form-label mt-2 mb-0 pb-0">Stad</label>
+                                <select asp-for="@Model.MealBox.City" class="form-select" disabled>
+                                    <option selected="selected">@Model.MealBox.City</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="@Model.MealBox.Cantina.Location" class="form-label mt-2 mb-0 pb-0">Kantine</label>
+                                <select asp-for="@Model.MealBox.Cantina.Location" class="form-select" disabled>
+                                    <option selected="selected">@Model.MealBox.Cantina.Location</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="@Model.MealBox.PickupUntilTime" class="form-label mt-2 mb-0 pb-0">Ophaal Datum en Tijd</label>
+                                <input asp-for="@Model.MealBox.PickupUntilTime" class="form-control" type="datetime-local" value="@Model.MealBox.PickupUntilTime.Value.ToString("yyyy-MM-dd'T'HH:mm")" max="@DateTime.Now.AddDays(2).ToString("yyyy-MM-dd'T'HH:mm:ss")">
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="@Model.MealBox.Type" class="form-label mt-2 mb-0 pb-0">Type Maaltijd</label>
+                                <select asp-for="@Model.MealBox.Type" class="form-select" asp-items="Html.GetEnumSelectList<MealType>()" id="MealType">
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input asp-for="@Model.MealBox.IsEighteen" class="form-check-input mt-2 mb-0 pb-0" type="checkbox" id="flexCheckDefault">
+                                    <label asp-for="@Model.MealBox.IsEighteen" class="form-check-label mt-2 mb-0 pb-0" for="flexCheckDefault">
+                                        Pakket is 18+
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col md-6">
+                        <div class="container product-container shadow">
+                            @foreach (ProductViewModel pvm in Model?.ProductViewModels ?? Enumerable.Empty<ProductViewModel>())
+                            {
+                                <div class="card productpicker-card p-0 m-3 h-100 shadow">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img src="@Url.Content(pvm.Product.ImgUrl)" class="img-fluid rounded-start detail-card-img" alt="Product Image">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <div class="col-md-6 m-0">
+                                                    <h4 class="card-title mb-0">@pvm.Product.Name</h4>
+                                                    @if (pvm.Product.ContainsAlcohol)
+                                                    {
+                                                        <p class="card-text">Bevat Alcohol</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="card-text">Bevat Geen Alcohol</p>
+                                                    }
+                                                </div>
+                                                <div class="col-md-6 m-0">
+                                                    <input asp-for="@Model.ProductViewModels[productCount].Product.Name" value="@pvm.Product.Name" type="hidden">
+                                                    <input asp-for="@Model.ProductViewModels[productCount].Product.ContainsAlcohol" value="@pvm.Product.ContainsAlcohol" type="hidden">
+                                                    <input asp-for="@Model.ProductViewModels[productCount].Product.ImgUrl" value="@pvm.Product.ImgUrl" type="hidden">
+                                                    <input asp-for="@Model.ProductViewModels[productCount].Product.Id" value="@pvm.Product.Id" type="hidden">
+                                                    <input asp-for="@Model.ProductViewModels[productCount].isSelected" type="checkbox">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                productCount++;
+                            }
+                        </div>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <button type="submit" class="btn btn-brown">Wijzigen</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

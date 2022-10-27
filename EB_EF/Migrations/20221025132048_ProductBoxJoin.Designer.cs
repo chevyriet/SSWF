@@ -4,6 +4,7 @@ using EB_EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EB_EF.Migrations
 {
     [DbContext(typeof(EBDbContext))]
-    partial class EBDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221025132048_ProductBoxJoin")]
+    partial class ProductBoxJoin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,25 +126,17 @@ namespace EB_EF.Migrations
 
             modelBuilder.Entity("Domain.MealBoxProduct", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<int>("MealBoxId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("MealBoxId");
+                    b.HasKey("MealBoxId", "ProductId");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("MealBoxesProducts");
+                    b.ToTable("MealBoxProduct");
                 });
 
             modelBuilder.Entity("Domain.Product", b =>

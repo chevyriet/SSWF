@@ -27,7 +27,7 @@ namespace Portal.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-            return View("Login");
+            return View("Login", new LoginViewModel());
         }
 
         [Authorize(Policy = "OnlyStudentUsersAndUp")]

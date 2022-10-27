@@ -14,5 +14,11 @@ namespace DomainServices
 
         IEnumerable<MealBox> GetMealBoxesByStudentId(int studentId);
 
+        void DeleteMealBox(int id);
+
+        MealBox? CreateMealBox(MealBox mealBox);
+
+        MealBox? EditMealBox(MealBox mealBox);
+
     }
 }
