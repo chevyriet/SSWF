@@ -87,5 +87,14 @@ namespace EB_EF
 
             return mealBoxToUpdate;
         }
+
+        public MealBox? ReserveMealBox(int mealBoxId, Student student)
+        {
+            MealBox? mealBox = _dbContext.MealBoxes.Include(m => m.Products).Include(m => m.Cantina).FirstOrDefault(m => m.Id == mealBoxId);
+            mealBox.Student = student;
+            _dbContext.SaveChanges();
+
+            return mealBox;
+        }
     }
 }

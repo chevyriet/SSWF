@@ -53,11 +53,11 @@ namespace EB_EF
                 Product4,
             });
 
-            Student Student1 = new Student { FirstName = "Chevy", LastName = "Rietveld", City = City.Breda, PhoneNumber = "0651160300", DateOfBirth = DateTime.Now.AddYears(-20), StudentNr = "2188423", EmailAddress = "chevyriet040104@gmail.com" };
+            Student Student1 = new Student { FirstName = "Chevy", LastName = "Rietveld", City = City.Breda, PhoneNumber = "0651160300", DateOfBirth = DateTime.Now.AddYears(-17), StudentNr = "2188423", EmailAddress = "chevyriet040104@gmail.com" };
             _context.Students.Add(Student1);
 
-            MealBox MealBox1 = new MealBox { Name = "Spinazie Pakket", Cantina = Cantina1, City = Cantina1.City, IsEighteen = false, Type = MealType.WarmDinner, Price = 7.99, PickupFromTime = DateTime.Now, Student = Student1, PickupUntilTime = DateTime.Now.AddHours(10), Products = new List<Product>() };
-            MealBox MealBox2 = new MealBox { Name = "Gezond Lunch Pakket", Cantina = Cantina1, City = Cantina1.City, IsEighteen = false, Type = MealType.Lunch, Price = 6.99, PickupFromTime = DateTime.Now, Student = Student1, PickupUntilTime = DateTime.Now.AddHours(10), Products = new List<Product>() };
+            MealBox MealBox1 = new MealBox { Name = "Spinazie Pakket", Cantina = Cantina1, City = Cantina1.City, IsEighteen = false, Type = MealType.WarmDinner, Price = 7.99, PickupFromTime = DateTime.Now, PickupUntilTime = DateTime.Now.AddHours(10), Products = new List<Product>() };
+            MealBox MealBox2 = new MealBox { Name = "Gezond Lunch Pakket", Cantina = Cantina1, City = Cantina1.City, IsEighteen = false, Type = MealType.Lunch, Price = 6.99, PickupFromTime = DateTime.Now, PickupUntilTime = DateTime.Now.AddHours(10), Products = new List<Product>() };
             MealBox MealBox3 = new MealBox { Name = "Brood Pakket", Cantina = Cantina2, City = Cantina2.City, IsEighteen = false, Type = MealType.Bread, Price = 4.99, PickupFromTime = DateTime.Now, PickupUntilTime = DateTime.Now.AddHours(10), Products = new List<Product>() };
             MealBox MealBox4 = new MealBox { Name = "Vettig Ontbijt Pakket", Cantina = Cantina3, City = Cantina3.City, IsEighteen = false, Type = MealType.Breakfast, Price = 8.99, PickupFromTime = DateTime.Now, PickupUntilTime = DateTime.Now.AddHours(10), Products = new List<Product>() };
 

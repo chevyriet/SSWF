@@ -20,5 +20,7 @@ namespace DomainServices
 
         MealBox? EditMealBox(MealBox mealBox);
 
+        MealBox? ReserveMealBox(int id, Student student);
+
     }
 }

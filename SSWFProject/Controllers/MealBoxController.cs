@@ -14,12 +14,14 @@ namespace Portal.Controllers
         private readonly IMealBoxRepository _repository;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IProductRepository _productRepository;
+        private readonly IStudentRepository _studentRepository;
 
-        public MealBoxController(IMealBoxRepository repository, IEmployeeRepository employeeRepository, IProductRepository productRepository)
+        public MealBoxController(IMealBoxRepository repository, IEmployeeRepository employeeRepository, IProductRepository productRepository, IStudentRepository studentRepository)
         {
             _repository = repository;
             _employeeRepository = employeeRepository;
             _productRepository = productRepository;
+            _studentRepository = studentRepository;
         }
 
         public IActionResult MealBoxes(int? id)
@@ -160,6 +162,43 @@ namespace Portal.Controllers
             }
 
             return RedirectToAction("Admin", "Account");
+        }
+
+        [HttpPost]
+        public IActionResult ReserveMealBox(int id)
+        {
+            var student = _studentRepository.GetStudentByEmail(User.Identity!.Name!);
+            MealBox? mealBox = _repository.GetMealBoxById(id);
+            if (_repository.GetMealBoxesByStudentId(student.Id).Where(m => m.PickupFromTime.Value.Date.Equals(DateTime.Now.Date)).Count() > 0)
+            {
+                ModelState.AddModelError("ReserveMoreThanOneError", "Kan niet meer dan 1 pakket per dag reserveren!");
+                return View("MealBoxDetail", mealBox);
+            } else
+            {
+                if (mealBox.IsEighteen)
+                {
+                    int age = DateTime.Today.Year - student.DateOfBirth.Year;
+
+                    if (DateTime.Today.Month < student.DateOfBirth.Month || (DateTime.Today.Month == student.DateOfBirth.Month && DateTime.Today.Day < student.DateOfBirth.Day))
+                    {
+                        age--;
+                    }
+                        
+                    if(age < 18)
+                    {
+                        ModelState.AddModelError("TooYoungError", "Moet 18+ zijn om dit pakket te kunnen reserveren");
+                        return View("MealBoxDetail", mealBox);
+                    } else
+                    {
+                        _repository.ReserveMealBox(id, student);
+                    }
+                } else
+                {
+                    _repository.ReserveMealBox(id, student);
+                }
+            }
+
+            return RedirectToAction("Profile", "Account");
         }
 
     }

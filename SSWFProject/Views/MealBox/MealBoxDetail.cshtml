@@ -20,7 +20,6 @@
                 <h1 class="m-0">@Model?.Name</h1>
                 <h3 class="mealdetail-header">@Model?.City, @Model?.Cantina.Location</h3>
                 <h3 class="mealdetail-header">€ @Model?.Price</h3>
-                <small me-0>*Kan alleen reserveren als je ingelogd bent als student</small>
             </div>
             <div class="col reservation-col shadow mt-3 col-lg-4">
                 <div class="row">
@@ -32,11 +31,22 @@
                     <div class="col col-lg-4 d-flex justify-content-center me-2">
                         @if(User.HasClaim("UserType", "studentuser")){
                             <button class="btn btn-brown my-auto shadow" data-bs-toggle="modal" data-bs-target="#reservationModal">Reserveren</button>
+                            <partial name="ConfirmReservationModal" model="@Model"></partial>
                         } else {
-                            <button class="btn btn-brown my-auto shadow" disabled>Reserveren</button>
+                            <button class="btn btn-brown my-auto shadow" disabled>Reserveren*</button>
                         }
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-end mt-2">
+                @if (!User.HasClaim("UserType", "studentuser"))
+                {
+                    <p me-0>*Kan alleen reserveren als je ingelogd bent als student</p>
+                }
+                <span class="text-danger"> @Html.ValidationMessage("TooYoungError")</span>
+                <span class="text-danger"> @Html.ValidationMessage("ReserveMoreThanOneError")</span>
             </div>
         </div>
         <div class="row">
@@ -66,21 +76,6 @@
                     </div>
                 </div>
             }
-        </div>
-
-        <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Wil Je Echt Reserveren?</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body d-flex align-items-start">
-                        <button type="button" class="btn btn-lightgreen me-1" data-bs-dismiss="modal">Annuleren</button>
-                        <button type="button" class="btn btn-lightgreen">Reserveren</button>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
