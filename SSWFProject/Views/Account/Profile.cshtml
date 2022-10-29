@@ -1,6 +1,6 @@
 ﻿@model ReservedMealBoxesViewModel
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = "Profiel";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -14,10 +14,23 @@
     <link rel="stylesheet" href="https://use.typekit.net/esv7sop.css">
 </head>
 <body>
-    <div class="container mt-4" style="min-height:469px">
+    <div class="container-fluid m-0 p-0">
+        <div class="row breadcrumb-row mt-0 pt-0 ms-0">
+            <nav aria-label="breadcrumb m-0 p-0">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Account" asp-action="Login">Student Inlog</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Profielpagina</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container" style="min-height:469px">
         <div class="row justify-content-start me-0">
-            <h1 class="mb-0">@Model.Student?.FirstName @Model.Student?.LastName,</h1>
-            <h2 class="mt-0">@Model.Student?.StudentNr</h2>
+            <h1 class="mb-0">@Model.Student?.FirstName @Model.Student?.LastName (@Model.Student?.StudentNr)</h1>
+            <h3 class="mt-0 mb-0">@Model.Student.EmailAddress</h3>
+            <h3 class="mt-0">+@Model.Student.PhoneNumber</h3>
 
             <div class="row">
                 <h2 class="mt-5 mb-0">Gereserveerde Pakketten</h2>

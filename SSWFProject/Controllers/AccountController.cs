@@ -61,7 +61,7 @@ namespace Portal.Controllers
                 }
             }
 
-            ModelState.AddModelError("", "Verkeerd email of wachtwoord");
+            ModelState.AddModelError("WrongEmailPasswordError", "Verkeerd email of wachtwoord");
             return View();
         }
 

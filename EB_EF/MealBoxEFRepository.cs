@@ -18,7 +18,7 @@ namespace EB_EF
             _dbContext = dbContext;
         }
 
-        public IEnumerable<MealBox> Mealboxes => _dbContext.MealBoxes.Include(m => m.Products).Include(m => m.Cantina).ToList();
+        public IEnumerable<MealBox> Mealboxes => _dbContext.MealBoxes.Include(m => m.Products).Include(m => m.Cantina).OrderBy(m => m.PickupUntilTime).ToList();
 
         public MealBox? GetMealBoxById(int id)
         {

@@ -31,7 +31,7 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">About</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Over Ons</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -40,24 +40,24 @@
                     <ul class="navbar-nav ms-auto">
                         @if (User.HasClaim("UserType", "employeeuser")) {
                             <li class="nav-item">
-                                <a class="btn" asp-area="" asp-controller="Account" asp-action="Login"><i class="bi bi-person" style="font-size: 30px; color: white;"></i></a>
+                                <a class="btn nav-link" asp-area="" asp-controller="Account" asp-action="Login"><i class="bi bi-person" style="font-size: 30px; color: white;"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="btn" asp-area="" asp-controller="Account" asp-action="Admin"><i class="bi bi-key" style="font-size: 30px; color:white;"></i></a>
+                                <a class="btn nav-link" asp-area="" asp-controller="Account" asp-action="Admin"><i class="bi bi-key" style="font-size: 30px; color:white;"></i></a>
                             </li>
                         } else if (User.HasClaim("UserType", "studentuser")) {
                             <li class="nav-item">
-                                <a class="btn" asp-area="" asp-controller="Account" asp-action="Profile"><i class="bi bi-person" style="font-size: 30px; color: white;"></i></a>
+                                <a class="btn nav-link" asp-area="" asp-controller="Account" asp-action="Profile"><i class="bi bi-person" style="font-size: 30px; color: white;"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="btn" asp-area="" asp-controller="Account" asp-action="EmployeeLogin"><i class="bi bi-key" style="font-size: 30px; color:white;"></i></a>
+                                <a class="btn nav-link" asp-area="" asp-controller="Account" asp-action="EmployeeLogin"><i class="bi bi-key" style="font-size: 30px; color:white;"></i></a>
                             </li>
                         } else {
                             <li class="nav-item">
-                                <a class="btn" asp-area="" asp-controller="Account" asp-action="Login"><i class="bi bi-person" style="font-size: 30px; color: white;"></i></a>
+                                <a class="btn nav-link" asp-area="" asp-controller="Account" asp-action="Login"><i class="bi bi-person" style="font-size: 30px; color: white;"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="btn" asp-area="" asp-controller="Account" asp-action="EmployeeLogin"><i class="bi bi-key" style="font-size: 30px; color:white;"></i></a>
+                                <a class="btn nav-link" asp-area="" asp-controller="Account" asp-action="EmployeeLogin"><i class="bi bi-key" style="font-size: 30px; color:white;"></i></a>
                             </li>
                         }
                     </ul>
@@ -93,7 +93,7 @@
             </div>
 
             <div class="col">
-                <h5>About</h5>
+                <h5>Over Ons</h5>
                 <ul class="nav flex-column">
                     <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Contact</a></li>
                     <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Over Ons</a></li>

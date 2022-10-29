@@ -1,6 +1,6 @@
 ﻿@model MealBoxViewModel
 @{
-    ViewData["Title"] = "MealBox Overview";
+    ViewData["Title"] = "Pakket Overzicht";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -14,11 +14,22 @@
     <link rel="stylesheet" href="https://use.typekit.net/esv7sop.css">
 </head>
 <body>
-    <div class="container mt-4">
+    <div class="container-fluid m-0 p-0">
+        <div class="row breadcrumb-row mt-0 pt-0 ms-0">
+            <nav aria-label="breadcrumb m-0 p-0">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Pakketten</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
         <div class="row justify-content-start">
-            <div class="col-sm-12 col-md-4">
-                <h2>Pakketten</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan ipsum at ligula euismod, id rhoncus erat aliquet. In aliquet euismod turpis ut consequat. Aenean suscipit nisl vel orci vulputate.</p>
+            <div class="col-sm-12 col-md-5">
+                <h2>Beschikbare Pakketten</h2>
+                <p>Op deze pagina wordt een overzicht van de nog niet gereserveerde pakketten van alle kantines getoond. Op de cards is natuurlijk aardig wat informatie beschikbaar over het pakket, maar wil je graag meer weten of heb je al besloten om het pakket te gaan reserveren, klik dan op de card van die maaltijd! </p>
             </div>
         </div>
 
@@ -26,57 +37,35 @@
 
         <div class="row row-cols-1 row-cols-md-3 mt-4">
             @foreach (MealBox m in Model?.MealBoxes ?? Enumerable.Empty<MealBox>()){
-                <div class="col mb-4">
-                    <div class="card overview-card h-100 shadow">
-                        <a class="stretched-link" asp-area="" asp-controller="MealBox" asp-action="MealBoxes" asp-route-id="@m.Id"></a>
-                        <img src="~/images/box-placeholder-img.png" class="card-img-top" alt="Box Placeholder Image">
-                        <div class="card-body">
-                            <h5 class="card-title">@m.Name</h5>
-                            <p class="card-price-text">Price: € @m.Price.ToString()</p>
-                            <p class="card-location-text">Location: @m.Cantina.City</p>
+                @if(m.Student == null){
+                    <div class="col mb-4">
+                        <div class="card overview-card h-100 shadow">
+                            <a class="stretched-link" asp-area="" asp-controller="MealBox" asp-action="MealBoxes" asp-route-id="@m.Id"></a>
+                            <img src="~/images/box-placeholder-img.png" class="card-img-top" alt="Box Placeholder Image">
+                            <div class="card-body">
+                                @if(m.IsEighteen){
+                                    <h5 class="card-title">@m.Name (18+)</h5>
+                                } else {
+                                    <h5 class="card-title">@m.Name</h5>
+                                }
+                                <p class="card-price-text">€ @m.Price.ToString()</p>
+                                <p class="card-location-text">@m.Cantina.City (@m.Cantina.Location)</p>
+                            </div>
                         </div>
                     </div>
-                </div>
                 }
-            <div class="col mb-4">
-                <div class="card overview-card h-100 shadow">
-                    <img src="~/images/box-placeholder-img.png" class="card-img-top" alt="Box Placeholder Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Pakket Naam</h5>
-                        <p class="card-price-text">Price: €0.00</p>
-                        <p class="card-location-text">Location: Breda</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="card overview-card h-100 shadow">
-                    <img src="~/images/box-placeholder-img.png" class="card-img-top" alt="Box Placeholder Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Pakket Naam</h5>
-                        <p class="card-price-text">Price: €0.00</p>
-                        <p class="card-location-text">Location: Breda</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="card overview-card h-100 shadow">
-                    <img src="~/images/box-placeholder-img.png" class="card-img-top" alt="Box Placeholder Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Pakket Naam</h5>
-                        <p class="card-price-text">Price: €0.00</p>
-                        <p class="card-location-text">Location: Breda</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="card overview-card h-100 shadow">
-                    <img src="~/images/box-placeholder-img.png" class="card-img-top" alt="Box Placeholder Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Pakket Naam</h5>
-                        <p class="card-price-text">Price: €0.00</p>
-                        <p class="card-location-text">Location: Breda</p>
-                    </div>
-                </div>
+            }
+
+            <div class="col-lg-12 d-flex justify-content-center">
+                <nav aria-label="Pagination">
+                    <ul class="pagination">
+                        <li class="page-item disabled"><a class="page-link" href="#">Vorige</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Volgende</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

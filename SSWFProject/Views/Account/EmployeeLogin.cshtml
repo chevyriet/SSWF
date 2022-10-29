@@ -14,7 +14,18 @@
     <link rel="stylesheet" href="https://use.typekit.net/esv7sop.css">
 </head>
 <body>
-    <div class="container mt-4 pt-5" style="min-height:469px">
+    <div class="container-fluid m-0 p-0">
+        <div class="row breadcrumb-row mt-0 pt-0 ms-0">
+            <nav aria-label="breadcrumb m-0 p-0">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Medewerker Login</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container pt-4" style="min-height:469px">
         <div class="row d-flex justify-content-center align-items-center">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <div class="card logincard shadow">
@@ -28,10 +39,12 @@
                                 <div class="form-group mb-3">
                                     <label asp-for="EmployeeNr">Medewerker Nummer</label>
                                     <input asp-for="EmployeeNr" type="text" class="form-control" id="employeenumberinput" placeholder="Voer hier uw medewerker nummer in..." />
+                                    <span asp-validation-for="@Model.EmployeeNr" class="text-danger"></span>
                                 </div>
                                 <div class="form-group mb-4">
                                     <label asp-for="Password">Wachtwoord</label>
                                     <input asp-for="Password" type="password" class="form-control" id="passwordInput" placeholder="Voer hier uw wachtwoord in...">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
 
                                 <div>

@@ -1,6 +1,6 @@
 ﻿@model CreateUpdateMealBoxViewModel
 @{
-    ViewData["Title"] = "Edit MealBox";
+    ViewData["Title"] = "Pakket Wijzigen";
     int productCount = 0;
 }
 <!DOCTYPE html>
@@ -15,10 +15,23 @@
     <link rel="stylesheet" href="https://use.typekit.net/esv7sop.css">
 </head>
 <body>
-    <div class="container mt-4" style="min-height:469px">
+    <div class="container-fluid m-0 p-0">
+        <div class="row breadcrumb-row mt-0 pt-0 ms-0">
+            <nav aria-label="breadcrumb m-0 p-0">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Account" asp-action="EmployeeLogin">Medewerker Inlog</a></li>
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Account" asp-action="Admin">Admin</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Pakket Wijzigen</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container mt-2" style="min-height:469px">
         <div class="row justify-content-start me-0">
             <div class="col col-lg-5">
-                <h1 class="mb-0">Wijzigen Pakket</h1>
+                <h1 class="mb-0">Pakket Wijzigen</h1>
                 <p>
                     Op deze pagina kunt u een bestaand pakket wijzigen door de benodigde informatie in het formulier in te vullen en op de "wijzigen" knop te klikken.
                 </p>
@@ -28,9 +41,8 @@
 
         <hr class="mt-3" />
 
-        <div class="row create-form-row shadow mt-5">
-            <h2 class="m-2">Wijzigen Pakket</h2>
-            <div class="row create-form-row-inner m-2">
+        <div class="row create-form-row shadow mt-5 mb-5">
+            <div class="row create-form-row-inner m-3">
                 <form asp-action="Edit" asp-controller="MealBox" method="post" class="row gy-2">
                     <div class="col md-6">
                         <div class="row">

@@ -12,7 +12,7 @@ namespace Domain
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Naam is verplicht")]
         public string Name { get; set; }
 
         [Required]
@@ -21,13 +21,13 @@ namespace Domain
         [Required]
         public DateTime? PickupFromTime { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "OphaalDatumTijd is verplicht")]
         public DateTime? PickupUntilTime { get; set; }
 
         [Required]
         public bool IsEighteen { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Prijs is verplicht")]
         public double Price { get; set; }
 
         [Required]

@@ -11,7 +11,7 @@
                 <button type="button" class="btn btn-lightgreen me-1" data-bs-dismiss="modal">Annuleren</button>
                 <form asp-area="" asp-controller="MealBox" asp-action="ReserveMealBox" method="post" asp-route-id="@Model?.Id">
                     <input asp-for="@Model.Id" type="hidden" />
-                    <button type="submit" class="btn btn-lightgreen">Reserveren</button>
+                    <button style="width:100%;" type="submit" class="btn btn-lightgreen">Reserveren</button>
                 </form>
             </div>
         </div>
