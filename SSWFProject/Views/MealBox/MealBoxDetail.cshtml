@@ -30,7 +30,11 @@
         <div class="row me-0">
             <div class="col-sm-12 col-md-4 col-lg-8">
                 <h1 class="m-0">@Model?.Name</h1>
-                <h3 class="mealdetail-header">@Model?.Type</h3>
+                @if(Model.IsWarm){
+                    <h3 class="mealdetail-header">@Model?.Type (Warm)</h3>
+                } else {
+                    <h3 class="mealdetail-header">@Model?.Type</h3>
+                }
                 <h3 class="mealdetail-header">@Model?.City, @Model?.Cantina.Location</h3>
                 <h3 class="mealdetail-header">€ @Model?.Price</h3>
             </div>
@@ -60,6 +64,8 @@
                 }
                 <span class="text-danger"> @Html.ValidationMessage("TooYoungError")</span>
                 <span class="text-danger"> @Html.ValidationMessage("ReserveMoreThanOneError")</span>
+                <span class="text-danger"> @Html.ValidationMessage("DoesNotExistError")</span>
+                <span class="text-danger"> @Html.ValidationMessage("AlreadyReservedError")</span>
             </div>
         </div>
         <div class="row">

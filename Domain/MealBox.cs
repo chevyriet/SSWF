@@ -33,6 +33,9 @@ namespace Domain
         [Required]
         public MealType Type { get; set; }
 
+        [Required]
+        public bool IsWarm { get; set; }
+
         public int? StudentId { get; set; }
         public Student? Student { get; set; }
 

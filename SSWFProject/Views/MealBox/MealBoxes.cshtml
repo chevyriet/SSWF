@@ -37,7 +37,7 @@
 
         <div class="row row-cols-1 row-cols-md-3 mt-4">
             @foreach (MealBox m in Model?.MealBoxes ?? Enumerable.Empty<MealBox>()){
-                @if(m.Student == null){
+                @if(m.StudentId == null){
                     <div class="col mb-4">
                         <div class="card overview-card h-100 shadow">
                             <a class="stretched-link" asp-area="" asp-controller="MealBox" asp-action="MealBoxes" asp-route-id="@m.Id"></a>

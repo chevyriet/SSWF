@@ -47,9 +47,13 @@
                         <a class="stretched-link" asp-area="" asp-controller="MealBox" asp-action="MealBoxes" asp-route-id="@m.Id"></a>
                         <img src="~/images/box-placeholder-img.png" class="card-img-top" alt="Box Placeholder Image">
                         <div class="card-body">
-                            <h5 class="card-title">@m.Name</h5>
-                            <p class="card-price-text">Price: € @m.Price.ToString()</p>
-                            <p class="card-location-text">Location: @m.Cantina.City</p>
+                            @if(m.IsEighteen){
+                                <h5 class="card-title">@m.Name (18+)</h5>
+                            } else {
+                                <h5 class="card-title">@m.Name</h5>
+                            }
+                            <p class="card-price-text">€ @m.Price.ToString()</p>
+                            <p class="card-location-text"> @m.Cantina.City (@m.Cantina.Location)</p>
                             <p>Ophalen Tot: @m.PickupUntilTime.Value.ToString("MM/dd/yyyy HH:mm")</p>
                         </div>
                     </div>

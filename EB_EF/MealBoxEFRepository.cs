@@ -49,7 +49,7 @@ namespace EB_EF
 
         public MealBox? CreateMealBox(MealBox mealBox)
         {
-            MealBox? newMealBox = new MealBox() { Name = mealBox.Name, City = mealBox.City, PickupFromTime = mealBox.PickupFromTime, PickupUntilTime = mealBox.PickupUntilTime, Price = mealBox.Price, IsEighteen = mealBox.IsEighteen, Type = mealBox.Type, Cantina = mealBox.Cantina, Products = new List<Product>() };
+            MealBox? newMealBox = new MealBox() { Name = mealBox.Name, City = mealBox.City, PickupFromTime = mealBox.PickupFromTime, PickupUntilTime = mealBox.PickupUntilTime, Price = mealBox.Price, IsEighteen = mealBox.IsEighteen, Type = mealBox.Type, IsWarm = mealBox.IsWarm, Cantina = mealBox.Cantina, Products = new List<Product>() };
             _dbContext.MealBoxes.Add(newMealBox);
             _dbContext.SaveChanges();
 
@@ -73,6 +73,7 @@ namespace EB_EF
                 mealBoxToUpdate.Price = mealBox.Price;
                 mealBoxToUpdate.IsEighteen = mealBox.IsEighteen;
                 mealBoxToUpdate.Type = mealBox.Type;
+                mealBoxToUpdate.IsWarm = mealBox.IsWarm;
                 mealBoxToUpdate?.Products?.Clear();
 
                 _dbContext.SaveChanges();

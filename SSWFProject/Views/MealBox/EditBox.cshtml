@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label asp-for="@Model.MealBox.PickupUntilTime" class="form-label mt-2 mb-0 pb-0">Ophaal Datum en Tijd</label>
-                                <input asp-for="@Model.MealBox.PickupUntilTime" class="form-control" type="datetime-local" value="@Model.MealBox.PickupUntilTime.Value.ToString("yyyy-MM-dd'T'HH:mm")" max="@DateTime.Now.AddDays(2).ToString("yyyy-MM-dd'T'HH:mm:ss")">
+                                <input asp-for="@Model.MealBox.PickupUntilTime" class="form-control" type="datetime-local" value="@Model.MealBox.PickupUntilTime.Value.ToString("yyyy-MM-dd'T'HH:mm")" min="@DateTime.Now.ToString("yyyy-MM-dd'T'HH:mm")" max="@DateTime.Now.AddDays(2).ToString("yyyy-MM-dd'T'HH:mm:ss")">
                             </div>
                             <div class="col-md-6">
                                 <label asp-for="@Model.MealBox.Type" class="form-label mt-2 mb-0 pb-0">Type Maaltijd</label>
@@ -78,10 +78,20 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-check">
-                                    <input asp-for="@Model.MealBox.IsEighteen" class="form-check-input mt-2 mb-0 pb-0" type="checkbox" id="flexCheckDefault">
-                                    <label asp-for="@Model.MealBox.IsEighteen" class="form-check-label mt-2 mb-0 pb-0" for="flexCheckDefault">
-                                        Pakket is 18+
-                                    </label>
+                                    @if (ViewBag.CantinaServesWarm)
+                                    {
+                                        <input asp-for="@Model.MealBox.IsWarm" class="form-check-input mt-2 mb-0 pb-0" type="checkbox" id="flexCheckDefault">
+                                        <label asp-for="@Model.MealBox.IsWarm" class="form-check-label mt-2 mb-0 pb-0" for="flexCheckDefault">
+                                            Pakket is warm
+                                        </label>
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="@Model.MealBox.IsWarm" class="form-check-input mt-2 mb-0 pb-0" type="checkbox" disabled>
+                                        <label asp-for="@Model.MealBox.IsWarm" class="form-check-label mt-2 mb-0 pb-0">
+                                            Pakket is warm
+                                        </label>
+                                    }
                                 </div>
                             </div>
                         </div>

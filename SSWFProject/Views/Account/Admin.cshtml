@@ -59,9 +59,13 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col col-md-10">
-                                            <h4 class="card-title mb-1">@m.Name</h4>
-                                            <p>Prijs: € @m.Price.ToString()</p>
-                                            <p>Locatie: @m.Cantina.City</p>
+                                            @if(m.IsEighteen){
+                                                <h4 class="card-title mb-1">@m.Name (18+)</h4>
+                                            } else {
+                                                <h4 class="card-title mb-1">@m.Name</h4>
+                                            }
+                                            <p>€ @m.Price.ToString()</p>
+                                            <p>@m.Cantina.City (@m.Cantina.Location)</p>
                                             <p>Ophalen Tot: @m.PickupUntilTime.Value.ToString("MM/dd/yyyy HH:mm")</p>
                                         </div>
                                         <div class="col col-md-1 d-flex justify-content-end my-auto">
