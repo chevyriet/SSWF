@@ -35,6 +35,9 @@
                     Dit is uw persoonlijke beheerpagina, waarop u pakketten kan zien in een overzicht, aanmaken, wijzigen en verwijderen door op
                     de respectievelijke buttons de klikken op de cards.
                 </p>
+                <form asp-area="" asp-controller="Account" asp-action="Logout">
+                    <button type="submit" class="btn btn-lightgreen mb-3" style="width: 25%">Logout</button>
+                </form>
                 <a class="btn btn-lightgreen" style="width: 30%;" asp-area="" asp-controller="MealBox" asp-action="Create">Pakket Aanmaken</a>
             </div>
         </div>

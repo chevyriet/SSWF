@@ -23,34 +23,62 @@ namespace EB_EF
 
             const string PASSWORD = "Secret123$";
 
-            const string EMPLOYEENUMBER_EMPLOYEEUSER = "123456789";
-            const string EMAIL_STUDENTUSER = "chevyriet040104@gmail.com";
+            const string EMPLOYEENUMBER_EMPLOYEEUSERBRAM = "987654321";
+            const string EMPLOYEENUMBER_EMPLOYEEUSERJAN = "123456789";
 
-            
-            var existingUser = await _userManager.FindByNameAsync(EMPLOYEENUMBER_EMPLOYEEUSER);
+            const string EMAIL_STUDENTUSERCHEVY = "chevy@gmail.com";
+            const string EMAIL_STUDENTUSERFRANK = "frank@gmail.com";
+
+            var existingUser = await _userManager.FindByNameAsync(EMPLOYEENUMBER_EMPLOYEEUSERJAN);
             if (existingUser != null)
                 await _userManager.DeleteAsync(existingUser);
 
-            existingUser = await _userManager.FindByNameAsync(EMAIL_STUDENTUSER);
+            existingUser = await _userManager.FindByNameAsync(EMAIL_STUDENTUSERCHEVY);
             if (existingUser != null)
                 await _userManager.DeleteAsync(existingUser);
-           
-            IdentityUser employeeUser = await _userManager.FindByIdAsync(EMPLOYEENUMBER_EMPLOYEEUSER);
+
+            existingUser = await _userManager.FindByNameAsync(EMPLOYEENUMBER_EMPLOYEEUSERBRAM);
+            if (existingUser != null)
+                await _userManager.DeleteAsync(existingUser);
+
+            existingUser = await _userManager.FindByNameAsync(EMAIL_STUDENTUSERFRANK);
+            if (existingUser != null)
+                await _userManager.DeleteAsync(existingUser);
+
+            IdentityUser employeeUser = await _userManager.FindByIdAsync(EMPLOYEENUMBER_EMPLOYEEUSERJAN);
             if (employeeUser == null)
             {
-                employeeUser = new IdentityUser(EMPLOYEENUMBER_EMPLOYEEUSER);
+                employeeUser = new IdentityUser(EMPLOYEENUMBER_EMPLOYEEUSERJAN);
 
                 await _userManager.CreateAsync(employeeUser, PASSWORD);
                 await _userManager.AddClaimAsync(employeeUser, new Claim(CLAIMNAME_USERTYPE, "employeeuser"));
             }
 
-            IdentityUser studentUser = await _userManager.FindByIdAsync(EMAIL_STUDENTUSER);
+            IdentityUser studentUser = await _userManager.FindByIdAsync(EMAIL_STUDENTUSERCHEVY);
             if (studentUser == null)
             {
-                studentUser = new IdentityUser(EMAIL_STUDENTUSER);
+                studentUser = new IdentityUser(EMAIL_STUDENTUSERCHEVY);
 
                 await _userManager.CreateAsync(studentUser, PASSWORD);
                 await _userManager.AddClaimAsync(studentUser, new Claim(CLAIMNAME_USERTYPE, "studentuser"));
+            }
+
+            IdentityUser employeeUser2 = await _userManager.FindByIdAsync(EMPLOYEENUMBER_EMPLOYEEUSERBRAM);
+            if (employeeUser2 == null)
+            {
+                employeeUser2 = new IdentityUser(EMPLOYEENUMBER_EMPLOYEEUSERBRAM);
+
+                await _userManager.CreateAsync(employeeUser2, PASSWORD);
+                await _userManager.AddClaimAsync(employeeUser2, new Claim(CLAIMNAME_USERTYPE, "employeeuser"));
+            }
+
+            IdentityUser studentUser2 = await _userManager.FindByIdAsync(EMAIL_STUDENTUSERFRANK);
+            if (studentUser2 == null)
+            {
+                studentUser2 = new IdentityUser(EMAIL_STUDENTUSERFRANK);
+
+                await _userManager.CreateAsync(studentUser2, PASSWORD);
+                await _userManager.AddClaimAsync(studentUser2, new Claim(CLAIMNAME_USERTYPE, "studentuser"));
             }
 
         }

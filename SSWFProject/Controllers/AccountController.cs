@@ -106,6 +106,11 @@ namespace Portal.Controllers
             return View("EmployeeLogin");
         }
 
+        public async Task<RedirectResult> Logout(string returnUrl = "/")
+        {
+            await _signInManager.SignOutAsync();
+            return Redirect(returnUrl);
+        }
 
     }
 }

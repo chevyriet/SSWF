@@ -31,6 +31,9 @@
             <h1 class="mb-0">@Model.Student?.FirstName @Model.Student?.LastName (@Model.Student?.StudentNr)</h1>
             <h3 class="mt-0 mb-0">@Model.Student.EmailAddress</h3>
             <h3 class="mt-0">+@Model.Student.PhoneNumber</h3>
+            <form asp-area="" asp-controller="Account" asp-action="Logout">
+                <button type="submit" class="btn btn-lightgreen" style="width: 10%">Logout</button>
+            </form>
 
             <div class="row">
                 <h2 class="mt-5 mb-0">Gereserveerde Pakketten</h2>

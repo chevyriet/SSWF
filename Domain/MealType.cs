@@ -9,9 +9,10 @@ namespace Domain
     public enum MealType
     {
         Brood,
-        AvondEten,
+        Groente,
         Ontbijt,
         Lunch,
         Snack,
+        Gezond,
     }
 }
