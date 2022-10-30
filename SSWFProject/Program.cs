@@ -15,7 +15,7 @@ builder.Services
     .AddScoped<EBSeedData>()
     .AddScoped<EBIdentitySeedData>()
 
-    // EF DB
+    // EFDB
     .AddDbContext<EBDbContext>(opts =>
      {
          opts
