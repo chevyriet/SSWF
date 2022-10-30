@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Domain;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
-namespace Domain
+namespace EB_WebAPI.Models
 {
-    public class Product
+    public class NewProductDTO
     {
         public int Id { get; set; }
 
@@ -21,7 +16,5 @@ namespace Domain
         [Required]
         public string? ImgUrl { get; set; }
 
-        [JsonIgnore]
-        public ICollection<MealBox>? MealBoxes { get; set; }
     }
 }
