@@ -182,7 +182,8 @@ namespace Portal.Controllers
         {
             var student = _studentRepository.GetStudentByEmail(User.Identity!.Name!);
             MealBox? mealBox = _repository.GetMealBoxById(id);
-            MealBoxReservationService mealBoxReservationService = new MealBoxReservationService();
+            StudentCheckService studentCheckService = new StudentCheckService();
+            MealBoxReservationService mealBoxReservationService = new MealBoxReservationService(studentCheckService);
 
             if(mealBoxReservationService.DoesMealBoxAndStudentExist(student, mealBox)){
                 if (!mealBoxReservationService.HasMealBoxAlreadyBeenReserved(mealBox))
@@ -196,7 +197,7 @@ namespace Portal.Controllers
                     {
                         if (mealBox.IsEighteen)
                         {
-                            if (!mealBoxReservationService.IsStudentOfAge(student, mealBox))
+                            if (!studentCheckService.IsStudentOfAge(student, mealBox))
                             {
                                 ModelState.AddModelError("TooYoungError", "Moet 18+ zijn om dit pakket te kunnen reserveren");
                                 return View("MealBoxDetail", mealBox);

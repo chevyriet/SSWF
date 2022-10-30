@@ -9,28 +9,12 @@ namespace DomainServices.Rules
 {
     public class MealBoxReservationService
     {
-        public MealBoxReservationService()
+
+        private StudentCheckService studentCheckService;
+
+        public MealBoxReservationService(StudentCheckService studentCheckService)
         {
-
-        }
-
-        public bool IsStudentOfAge(Student student, MealBox mealBox)
-        {
-            DateTime pickUpDate = mealBox.PickupUntilTime.Value.Date;
-            int age = DateTime.Today.Year - student.DateOfBirth.Year;
-            if (pickUpDate.Month < student.DateOfBirth.Month || (pickUpDate.Month == student.DateOfBirth.Month && pickUpDate.Day < student.DateOfBirth.Day))
-            {
-                age--;
-            }
-
-            if(age < 18)
-            {
-                return false;
-            } else
-            {
-                return true;
-            }
-
+            this.studentCheckService = studentCheckService;
         }
 
         public bool HasMealBoxAlreadyBeenReserved(MealBox mealBox)
@@ -54,6 +38,35 @@ namespace DomainServices.Rules
                 return true;
             }
 
+        }
+
+        public bool IsStudentAllowedToReservateMealBox(Student student, MealBox mealBox)
+        {
+            if(DoesMealBoxAndStudentExist(student, mealBox))
+            {
+                if (!HasMealBoxAlreadyBeenReserved(mealBox)){
+                    if (mealBox.IsEighteen)
+                    {
+                        if (studentCheckService.IsStudentOfAge(student, mealBox))
+                        {
+                            return true;
+                        } else
+                        {
+                            return false;
+                        }
+                    } else
+                    {
+                        return true;
+                    }
+                    
+                } else
+                {
+                    return false;
+                }
+            } else
+            {
+                return false;
+            }
         }
     }
 }
