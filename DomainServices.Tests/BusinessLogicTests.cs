@@ -14,43 +14,45 @@ namespace DomainServices.Tests
     public class BusinessLogicTests
     {
         [Fact]
-        public void DoesMealBoxAndStudentExistShouldReturnFalseWhenStudentIsNull()
+        public void DoesMealBoxAndStudentExistShouldThrowCorrectExceptionWhenStudentIsNull()
         {
             //Arrange
             var MealBox = new MealBox { Name = "Test Pakket", IsEighteen = false, Type = MealType.Groente, IsWarm = true, Price = 7.99, PickupFromTime = DateTime.Now, PickupUntilTime = DateTime.Now.AddHours(10), Products = new List<Product>() };
             var Student = new Student();
             Student = null;
-            var StudentCheckServiceMock = new Mock<StudentCheckService>();
+            Mock<IMealBoxRepository> iMealBoxRepositoryMock = new Mock<IMealBoxRepository>();
 
-            var sut = new MealBoxReservationService(StudentCheckServiceMock.Object);
+            var sut = new MealBoxReservationService(iMealBoxRepositoryMock.Object);
 
             //Act
-            var result = sut.DoesMealBoxAndStudentExist(Student, MealBox);
+            Action result = () => sut.DoesMealBoxAndStudentExist(Student, MealBox);
 
             //Assert
-            Assert.False(result);
+            Exception e = Assert.Throws<Exception>(result);
+            Assert.Equal("Pakket of Student bestaat niet", e.Message);
         }
 
         [Fact]
-        public void DoesMealBoxAndStudentExistShouldReturnFalseWhenMealBoxIsNull()
+        public void DoesMealBoxAndStudentExistShouldThrowCorrectExceptionWhenMealBoxIsNull()
         {
             //Arrange
             var MealBox = new MealBox();
             MealBox = null;
             var Student = new Student { FirstName = "Chevy", LastName = "Rietveld", City = City.Breda, PhoneNumber = "0651160300", DateOfBirth = DateTime.Now.AddYears(-20), StudentNr = "2188423", EmailAddress = "chevy@gmail.com" };
-            var StudentCheckServiceMock = new Mock<StudentCheckService>();
+            Mock<IMealBoxRepository> iMealBoxRepositoryMock = new Mock<IMealBoxRepository>();
 
-            var sut = new MealBoxReservationService(StudentCheckServiceMock.Object);
+            var sut = new MealBoxReservationService(iMealBoxRepositoryMock.Object);
 
             //Act
-            var result = sut.DoesMealBoxAndStudentExist(Student, MealBox);
+            Action result = () => sut.DoesMealBoxAndStudentExist(Student, MealBox);
 
             //Assert
-            Assert.False(result);
+            Exception e = Assert.Throws<Exception>(result);
+            Assert.Equal("Pakket of Student bestaat niet", e.Message);
         }
 
         [Fact]
-        public void DoesMealBoxAndStudentExistShouldReturnFalseWhenMealBoxAndStudentIsNull()
+        public void DoesMealBoxAndStudentExistShouldThrowCorrectExceptionWhenMealBoxAndStudentIsNull()
         {
             //Arrange
             var MealBox = new MealBox();
@@ -58,15 +60,16 @@ namespace DomainServices.Tests
             var Student = new Student();
             Student = null;
 
-            var StudentCheckServiceMock = new Mock<StudentCheckService>();
+            Mock<IMealBoxRepository> iMealBoxRepositoryMock = new Mock<IMealBoxRepository>();
 
-            var sut = new MealBoxReservationService(StudentCheckServiceMock.Object);
+            var sut = new MealBoxReservationService(iMealBoxRepositoryMock.Object);
 
             //Act
-            var result = sut.DoesMealBoxAndStudentExist(Student, MealBox);
+            Action result = () => sut.DoesMealBoxAndStudentExist(Student, MealBox);
 
             //Assert
-            Assert.False(result);
+            Exception e = Assert.Throws<Exception>(result);
+            Assert.Equal("Pakket of Student bestaat niet", e.Message);
         }
 
         [Fact]
@@ -75,9 +78,9 @@ namespace DomainServices.Tests
             //Arrange
             var MealBox = new MealBox { Name = "Test Pakket", IsEighteen = false, Type = MealType.Groente, IsWarm = true, Price = 7.99, PickupFromTime = DateTime.Now, PickupUntilTime = DateTime.Now.AddHours(10), Products = new List<Product>() };
             var Student = new Student { FirstName = "Chevy", LastName = "Rietveld", City = City.Breda, PhoneNumber = "0651160300", DateOfBirth = DateTime.Now.AddYears(-20), StudentNr = "2188423", EmailAddress = "chevy@gmail.com" };
-            var StudentCheckServiceMock = new Mock<StudentCheckService>();
+            Mock<IMealBoxRepository> iMealBoxRepositoryMock = new Mock<IMealBoxRepository>();
 
-            var sut = new MealBoxReservationService(StudentCheckServiceMock.Object);
+            var sut = new MealBoxReservationService(iMealBoxRepositoryMock.Object);
 
             //Act
             var result = sut.DoesMealBoxAndStudentExist(Student, MealBox);
@@ -91,9 +94,9 @@ namespace DomainServices.Tests
         {
             //Arrange
             var MealBox = new MealBox { Name = "Test Pakket", IsEighteen = false, Type = MealType.Groente, IsWarm = true, Price = 7.99, PickupFromTime = DateTime.Now, PickupUntilTime = DateTime.Now.AddHours(10), Products = new List<Product>() };
-            var StudentCheckServiceMock = new Mock<StudentCheckService>();
+            Mock<IMealBoxRepository> iMealBoxRepositoryMock = new Mock<IMealBoxRepository>();
 
-            var sut = new MealBoxReservationService(StudentCheckServiceMock.Object);
+            var sut = new MealBoxReservationService(iMealBoxRepositoryMock.Object);
 
             //Act
             var result = sut.HasMealBoxAlreadyBeenReserved(MealBox);
@@ -103,29 +106,32 @@ namespace DomainServices.Tests
         }
 
         [Fact]
-        public void HasMealBoxAlreadyBeenReservedShouldReturnTrueIfItHasBeenReserved()
+        public void HasMealBoxAlreadyBeenReservedShouldThrowCorrectExceptionIfItHasBeenReserved()
         {
             //Arrange
             var MealBox = new MealBox { Name = "Test Pakket", IsEighteen = false, Type = MealType.Groente, IsWarm = true, Price = 7.99, StudentId = 1, PickupFromTime = DateTime.Now, PickupUntilTime = DateTime.Now.AddHours(10), Products = new List<Product>() };
-            var StudentCheckServiceMock = new Mock<StudentCheckService>();
+            Mock<IMealBoxRepository> iMealBoxRepositoryMock = new Mock<IMealBoxRepository>();
 
-            var sut = new MealBoxReservationService(StudentCheckServiceMock.Object);
+            var sut = new MealBoxReservationService(iMealBoxRepositoryMock.Object);
 
             //Act
-            var result = sut.HasMealBoxAlreadyBeenReserved(MealBox);
+            Action result = () => sut.HasMealBoxAlreadyBeenReserved(MealBox);
 
             //Assert
-            Assert.True(result);
+            Exception e = Assert.Throws<Exception>(result);
+            Assert.Equal("Pakket is ondertussen al gereserveerd, kan niet reserveren", e.Message);
         }
 
         [Fact]
         public void IsStudentOfAgeShouldReturnTrueIfStudentIsEighteenOnMealBoxPickupTime()
         {
             //Arrange
-            var MealBox = new MealBox { Name = "Test Pakket", IsEighteen = false, Type = MealType.Groente, IsWarm = true, Price = 7.99, StudentId = 1, PickupFromTime = DateTime.Now.AddHours(-10), PickupUntilTime = DateTime.Now, Products = new List<Product>() };
+            var MealBox = new MealBox { Name = "Test Pakket", IsEighteen = true, Type = MealType.Groente, IsWarm = true, Price = 7.99, StudentId = 1, PickupFromTime = DateTime.Now.AddHours(-10), PickupUntilTime = DateTime.Now, Products = new List<Product>() };
             var Student = new Student { FirstName = "Chevy", LastName = "Rietveld", City = City.Breda, PhoneNumber = "0651160300", DateOfBirth = DateTime.Now.AddYears(-18), StudentNr = "2188423", EmailAddress = "chevy@gmail.com" };
 
-            var sut = new StudentCheckService();
+            Mock<IMealBoxRepository> iMealBoxRepositoryMock = new Mock<IMealBoxRepository>();
+
+            var sut = new MealBoxReservationService(iMealBoxRepositoryMock.Object);
 
             //Act
             var result = sut.IsStudentOfAge(Student, MealBox);
@@ -138,10 +144,12 @@ namespace DomainServices.Tests
         public void IsStudentOfAgeShouldReturnTrueIfStudentIsNineteenOnMealBoxPickupTime()
         {
             //Arrange
-            var MealBox = new MealBox { Name = "Test Pakket", IsEighteen = false, Type = MealType.Groente, IsWarm = true, Price = 7.99, StudentId = 1, PickupFromTime = DateTime.Now.AddHours(-10), PickupUntilTime = DateTime.Now, Products = new List<Product>() };
+            var MealBox = new MealBox { Name = "Test Pakket", IsEighteen = true, Type = MealType.Groente, IsWarm = true, Price = 7.99, StudentId = 1, PickupFromTime = DateTime.Now.AddHours(-10), PickupUntilTime = DateTime.Now, Products = new List<Product>() };
             var Student = new Student { FirstName = "Chevy", LastName = "Rietveld", City = City.Breda, PhoneNumber = "0651160300", DateOfBirth = DateTime.Now.AddYears(-19), StudentNr = "2188423", EmailAddress = "chevy@gmail.com" };
 
-            var sut = new StudentCheckService();
+            Mock<IMealBoxRepository> iMealBoxRepositoryMock = new Mock<IMealBoxRepository>();
+
+            var sut = new MealBoxReservationService(iMealBoxRepositoryMock.Object);
 
             //Act
             var result = sut.IsStudentOfAge(Student, MealBox);
@@ -157,7 +165,9 @@ namespace DomainServices.Tests
             var MealBox = new MealBox { Name = "Test Pakket", IsEighteen = false, Type = MealType.Groente, IsWarm = true, Price = 7.99, StudentId = 1, PickupFromTime = DateTime.Now.AddHours(-10), PickupUntilTime = DateTime.Now, Products = new List<Product>() };
             var Student = new Student { FirstName = "Chevy", LastName = "Rietveld", City = City.Breda, PhoneNumber = "0651160300", DateOfBirth = DateTime.Now.AddYears(-90), StudentNr = "2188423", EmailAddress = "chevy@gmail.com" };
 
-            var sut = new StudentCheckService();
+            Mock<IMealBoxRepository> iMealBoxRepositoryMock = new Mock<IMealBoxRepository>();
+
+            var sut = new MealBoxReservationService(iMealBoxRepositoryMock.Object);
 
             //Act
             var result = sut.IsStudentOfAge(Student, MealBox);
@@ -167,104 +177,97 @@ namespace DomainServices.Tests
         }
 
         [Fact]
-        public void IsStudentOfAgeShouldReturnFalseIfStudentIsSeventeenOnMealBoxPickupTime()
+        public void IsStudentOfAgeShouldThrowCorrectExceptionIfStudentIsSeventeenOnMealBoxPickupTime()
         {
             //Arrange
-            var MealBox = new MealBox { Name = "Test Pakket", IsEighteen = false, Type = MealType.Groente, IsWarm = true, Price = 7.99, StudentId = 1, PickupFromTime = DateTime.Now.AddHours(-10), PickupUntilTime = DateTime.Now, Products = new List<Product>() };
+            var MealBox = new MealBox { Name = "Test Pakket", IsEighteen = true, Type = MealType.Groente, IsWarm = true, Price = 7.99, StudentId = 1, PickupFromTime = DateTime.Now.AddHours(-10), PickupUntilTime = DateTime.Now, Products = new List<Product>() };
             var Student = new Student { FirstName = "Chevy", LastName = "Rietveld", City = City.Breda, PhoneNumber = "0651160300", DateOfBirth = DateTime.Now.AddYears(-17), StudentNr = "2188423", EmailAddress = "chevy@gmail.com" };
 
-            var sut = new StudentCheckService();
+            Mock<IMealBoxRepository> iMealBoxRepositoryMock = new Mock<IMealBoxRepository>();
+
+            var sut = new MealBoxReservationService(iMealBoxRepositoryMock.Object);
 
             //Act
-            var result = sut.IsStudentOfAge(Student, MealBox);
+            Action result = () => sut.IsStudentOfAge(Student, MealBox);
 
             //Assert
-            Assert.False(result);
+            Exception e = Assert.Throws<Exception>(result);
+            Assert.Equal("Moet 18+ zijn om dit pakket te kunnen reserveren", e.Message);
         }
 
         [Fact]
-        public void IsStudentOfAgeShouldReturnFalseIfStudentIsOneOnMealBoxPickupTime()
+        public void IsStudentOfAgeShouldThrowCorrectExceptionIfStudentIsOneOnMealBoxPickupTime()
         {
             //Arrange
-            var MealBox = new MealBox { Name = "Test Pakket", IsEighteen = false, Type = MealType.Groente, IsWarm = true, Price = 7.99, StudentId = 1, PickupFromTime = DateTime.Now.AddHours(-10), PickupUntilTime = DateTime.Now, Products = new List<Product>() };
+            var MealBox = new MealBox { Name = "Test Pakket", IsEighteen = true, Type = MealType.Groente, IsWarm = true, Price = 7.99, StudentId = 1, PickupFromTime = DateTime.Now.AddHours(-10), PickupUntilTime = DateTime.Now, Products = new List<Product>() };
             var Student = new Student { FirstName = "Chevy", LastName = "Rietveld", City = City.Breda, PhoneNumber = "0651160300", DateOfBirth = DateTime.Now.AddYears(-1), StudentNr = "2188423", EmailAddress = "chevy@gmail.com" };
 
-            var sut = new StudentCheckService();
+            Mock<IMealBoxRepository> iMealBoxRepositoryMock = new Mock<IMealBoxRepository>();
+
+            var sut = new MealBoxReservationService(iMealBoxRepositoryMock.Object);
 
             //Act
-            var result = sut.IsStudentOfAge(Student, MealBox);
+            Action result = () => sut.IsStudentOfAge(Student, MealBox);
 
             //Assert
-            Assert.False(result);
+            Exception e = Assert.Throws<Exception>(result);
+            Assert.Equal("Moet 18+ zijn om dit pakket te kunnen reserveren", e.Message);
         }
 
         [Fact]
-        public void IsStudentAllowedToReservateMealBoxShouldReturnFalseIfMealBoxOrStudentIsNull()
+        public void ReserveMealBoxShouldThrowCorrectExceptionIfMealBoxOrStudentIsNull()
         {
             //Arrange
             var MealBox = new MealBox();
             MealBox = null;
             var Student = new Student { FirstName = "Chevy", LastName = "Rietveld", City = City.Breda, PhoneNumber = "0651160300", DateOfBirth = DateTime.Now.AddYears(-20), StudentNr = "2188423", EmailAddress = "chevy@gmail.com" };
-            var StudentCheckServiceMock = new Mock<StudentCheckService>();
+            Mock<IMealBoxRepository> iMealBoxRepositoryMock = new Mock<IMealBoxRepository>();
 
-            var sut = new MealBoxReservationService(StudentCheckServiceMock.Object);
+            var sut = new MealBoxReservationService(iMealBoxRepositoryMock.Object);
 
             //Act
-            var result = sut.IsStudentAllowedToReservateMealBox(Student, MealBox);
+            Action result = () => sut.ReserveMealBox(Student, MealBox, 1);
 
             //Assert
-            Assert.False(result);
+            Exception e = Assert.Throws<Exception>(result);
+            Assert.Equal("Pakket of Student bestaat niet", e.Message);
         }
 
         [Fact]
-        public void IsStudentAllowedToReservateMealBoxShouldReturnFalseIfMealBoxHasAlreadyBeenReserved()
+        public void ReserveMealBoxShouldThrowCorrectExceptionIfMealBoxHasAlreadyBeenReserved()
         {
             //Arrange
             var Student = new Student { Id = 1, FirstName = "Chevy", LastName = "Rietveld", City = City.Breda, PhoneNumber = "0651160300", DateOfBirth = DateTime.Now.AddYears(-20), StudentNr = "2188423", EmailAddress = "chevy@gmail.com" };
             var MealBox = new MealBox { Name = "Test Pakket", IsEighteen = false, Type = MealType.Groente, IsWarm = true, Price = 7.99, StudentId = 4, PickupFromTime = DateTime.Now, PickupUntilTime = DateTime.Now.AddHours(10), Products = new List<Product>() };
-            var StudentCheckServiceMock = new Mock<StudentCheckService>();
+            Mock<IMealBoxRepository> iMealBoxRepositoryMock = new Mock<IMealBoxRepository>();
 
-            var sut = new MealBoxReservationService(StudentCheckServiceMock.Object);
+            var sut = new MealBoxReservationService(iMealBoxRepositoryMock.Object);
 
             //Act
-            var result = sut.IsStudentAllowedToReservateMealBox(Student, MealBox);
+            Action result = () => sut.ReserveMealBox(Student, MealBox, 1);
 
             //Assert
-            Assert.False(result);
+            Exception e = Assert.Throws<Exception>(result);
+            Assert.Equal("Pakket is ondertussen al gereserveerd, kan niet reserveren", e.Message);
         }
 
         [Fact]
-        public void IsStudentAllowedToReservateMealBoxShouldReturnFalseIfMealBoxContainsAlcoholAndStudentIsNotOfAge()
+        public void ReserveMealBoxShouldThrowCorrectExceptionIfMealBoxContainsAlcoholAndStudentIsNotOfAge()
         {
             //Arrange
             var Student = new Student { FirstName = "Chevy", LastName = "Rietveld", City = City.Breda, PhoneNumber = "0651160300", DateOfBirth = DateTime.Now.AddYears(-10), StudentNr = "2188423", EmailAddress = "chevy@gmail.com" };
             var MealBox = new MealBox { Name = "Test Pakket", IsEighteen = true, Type = MealType.Groente, IsWarm = true, Price = 7.99, PickupFromTime = DateTime.Now, PickupUntilTime = DateTime.Now.AddHours(10), Products = new List<Product>() };
-            var StudentCheckServiceMock = new Mock<StudentCheckService>();
+            Mock<IMealBoxRepository> iMealBoxRepositoryMock = new Mock<IMealBoxRepository>();
 
-            var sut = new MealBoxReservationService(StudentCheckServiceMock.Object);
-
-            //Act
-            var result = sut.IsStudentAllowedToReservateMealBox(Student, MealBox);
-
-            //Assert
-            Assert.False(result);
-        }
-
-        [Fact]
-        public void IsStudentAllowedToReservateMealBoxShouldReturnTrueIfMealBoxContainsAlcoholAndStudentIsOfAge()
-        {
-            //Arrange
-            var Student = new Student { FirstName = "Chevy", LastName = "Rietveld", City = City.Breda, PhoneNumber = "0651160300", DateOfBirth = DateTime.Now.AddYears(-20), StudentNr = "2188423", EmailAddress = "chevy@gmail.com" };
-            var MealBox = new MealBox { Name = "Test Pakket", IsEighteen = true, Type = MealType.Groente, IsWarm = true, Price = 7.99, PickupFromTime = DateTime.Now, PickupUntilTime = DateTime.Now.AddHours(10), Products = new List<Product>() };
-            var StudentCheckServiceMock = new Mock<StudentCheckService>();
-
-            var sut = new MealBoxReservationService(StudentCheckServiceMock.Object);
+            var sut = new MealBoxReservationService(iMealBoxRepositoryMock.Object);
 
             //Act
-            var result = sut.IsStudentAllowedToReservateMealBox(Student, MealBox);
+            Action result = () => sut.ReserveMealBox(Student, MealBox, 1);
 
             //Assert
-            Assert.True(result);
+            Exception e = Assert.Throws<Exception>(result);
+            Assert.Equal("Moet 18+ zijn om dit pakket te kunnen reserveren", e.Message);
         }
+
     }
 }

@@ -11,12 +11,10 @@ namespace DomainServices.Rules
     {
 
         private readonly IMealBoxRepository _mealBoxRepository;
-        private readonly IStudentRepository _studentRepository;
 
-        public MealBoxReservationService(IMealBoxRepository mealBoxRepository, IStudentRepository studentRepository)
+        public MealBoxReservationService(IMealBoxRepository mealBoxRepository)
         {
             _mealBoxRepository = mealBoxRepository;
-            _studentRepository = studentRepository;
         }
 
         public bool HasMealBoxAlreadyBeenReserved(MealBox mealBox)
