@@ -16,13 +16,15 @@ namespace Portal.Controllers
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IProductRepository _productRepository;
         private readonly IStudentRepository _studentRepository;
+        private readonly IMealBoxReservationService _mealBoxReservationService;
 
-        public MealBoxController(IMealBoxRepository repository, IEmployeeRepository employeeRepository, IProductRepository productRepository, IStudentRepository studentRepository)
+        public MealBoxController(IMealBoxRepository repository, IEmployeeRepository employeeRepository, IProductRepository productRepository, IStudentRepository studentRepository, IMealBoxReservationService mealBoxReservationService)
         {
             _repository = repository;
             _employeeRepository = employeeRepository;
             _productRepository = productRepository;
             _studentRepository = studentRepository;
+            _mealBoxReservationService = mealBoxReservationService;
         }
 
         public IActionResult MealBoxes(int? id)
@@ -182,47 +184,16 @@ namespace Portal.Controllers
         {
             var student = _studentRepository.GetStudentByEmail(User.Identity!.Name!);
             MealBox? mealBox = _repository.GetMealBoxById(id);
-            StudentCheckService studentCheckService = new StudentCheckService();
-            MealBoxReservationService mealBoxReservationService = new MealBoxReservationService(studentCheckService);
 
-            if(mealBoxReservationService.DoesMealBoxAndStudentExist(student, mealBox)){
-                if (!mealBoxReservationService.HasMealBoxAlreadyBeenReserved(mealBox))
-                {
-                    if (_repository.GetMealBoxesByStudentId(student.Id).Where(m => m.PickupFromTime.Value.Date.Equals(DateTime.Now.Date)).Count() > 0)
-                    {
-                        ModelState.AddModelError("ReserveMoreThanOneError", "Kan niet meer dan 1 pakket per ophaaldag reserveren!");
-                        return View("MealBoxDetail", mealBox);
-                    }
-                    else
-                    {
-                        if (mealBox.IsEighteen)
-                        {
-                            if (!studentCheckService.IsStudentOfAge(student, mealBox))
-                            {
-                                ModelState.AddModelError("TooYoungError", "Moet 18+ zijn om dit pakket te kunnen reserveren");
-                                return View("MealBoxDetail", mealBox);
-                            }
-                            else
-                            {
-                                _repository.ReserveMealBox(id, student);
-                            }
-                        }
-                        else
-                        {
-                            _repository.ReserveMealBox(id, student);
-                        }
-                    }
-                } else
-                {
-                    ModelState.AddModelError("AlreadyReservedError", "Pakket is ondertussen al gereserveerd, kan niet reserveren");
-                    return View("MealBoxDetail", mealBox);
-                }
-            } else
+            try
             {
-                ModelState.AddModelError("DoesNotExistError", "Pakket of Student bestaat niet");
+                _mealBoxReservationService.ReserveMealBox(student, mealBox, id);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("ReservationError", e.Message);
                 return View("MealBoxDetail", mealBox);
             }
-            
 
             return RedirectToAction("Profile", "Account");
         }

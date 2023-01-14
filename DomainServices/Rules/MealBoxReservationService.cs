@@ -7,24 +7,40 @@ using System.Threading.Tasks;
 
 namespace DomainServices.Rules
 {
-    public class MealBoxReservationService
+    public class MealBoxReservationService: IMealBoxReservationService
     {
 
-        private StudentCheckService studentCheckService;
+        private readonly IMealBoxRepository _mealBoxRepository;
+        private readonly IStudentRepository _studentRepository;
 
-        public MealBoxReservationService(StudentCheckService studentCheckService)
+        public MealBoxReservationService(IMealBoxRepository mealBoxRepository, IStudentRepository studentRepository)
         {
-            this.studentCheckService = studentCheckService;
+            _mealBoxRepository = mealBoxRepository;
+            _studentRepository = studentRepository;
         }
 
         public bool HasMealBoxAlreadyBeenReserved(MealBox mealBox)
         {
+
             if(mealBox.StudentId == null)
             {
                 return false;
             } else
             {
-                return true;
+                throw new Exception("Pakket is ondertussen al gereserveerd, kan niet reserveren");
+            }
+        }
+
+        public bool HasStudentAlreadyReservedMealBoxForThatPickupDay(MealBox mealBox, Student student)
+        {
+
+            if (_mealBoxRepository.GetMealBoxesByStudentId(student.Id).Where(m => m.PickupFromTime.Value.Date.Equals(DateTime.Now.Date)).Count() > 0)
+            {
+                throw new Exception("Kan niet meer dan 1 pakket per ophaaldag reserveren!");
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -32,7 +48,7 @@ namespace DomainServices.Rules
         {
             if(student == null || mealBox == null)
             {
-                return false;
+                throw new Exception("Pakket of Student bestaat niet");
             } else
             {
                 return true;
@@ -40,33 +56,55 @@ namespace DomainServices.Rules
 
         }
 
-        public bool IsStudentAllowedToReservateMealBox(Student student, MealBox mealBox)
+        public bool IsStudentOfAge(Student student, MealBox mealBox)
         {
-            if(DoesMealBoxAndStudentExist(student, mealBox))
+            if (mealBox.IsEighteen)
             {
-                if (!HasMealBoxAlreadyBeenReserved(mealBox)){
-                    if (mealBox.IsEighteen)
-                    {
-                        if (studentCheckService.IsStudentOfAge(student, mealBox))
-                        {
-                            return true;
-                        } else
-                        {
-                            return false;
-                        }
-                    } else
-                    {
-                        return true;
-                    }
-                    
-                } else
+                DateTime pickUpDate = mealBox.PickupUntilTime.Value.Date;
+                int age = DateTime.Today.Year - student.DateOfBirth.Year;
+                if (pickUpDate.Month < student.DateOfBirth.Month || (pickUpDate.Month == student.DateOfBirth.Month && pickUpDate.Day < student.DateOfBirth.Day))
                 {
-                    return false;
+                    age--;
+                }
+
+                if (age < 18)
+                {
+                    throw new Exception("Moet 18+ zijn om dit pakket te kunnen reserveren");
+                }
+                else
+                {
+                    return true;
                 }
             } else
             {
-                return false;
+                return true;
             }
+
+        }
+
+        public void ReserveMealBox(Student student, MealBox mealBox, int id)
+        {
+            try
+            {
+                if (DoesMealBoxAndStudentExist(student, mealBox))
+                {
+                    if (!HasMealBoxAlreadyBeenReserved(mealBox))
+                    {
+                        if (!HasStudentAlreadyReservedMealBoxForThatPickupDay(mealBox, student))
+                        {
+                            if (IsStudentOfAge(student, mealBox))
+                            {
+                                _mealBoxRepository.ReserveMealBox(id, student);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
         }
     }
 }

@@ -1,4 +1,5 @@
 using DomainServices;
+using DomainServices.Rules;
 using EB_EF;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ builder.Services
     .AddScoped<IStudentRepository, StudentEFRepository>()
     .AddScoped<IEmployeeRepository, EmployeeEFRepository>()
     .AddScoped<IProductRepository, ProductEFRepository>()
+    .AddScoped<IMealBoxReservationService, MealBoxReservationService>()
     .AddScoped<EBSeedData>()
     .AddScoped<EBIdentitySeedData>()
 
