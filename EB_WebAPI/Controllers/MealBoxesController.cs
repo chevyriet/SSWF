@@ -3,6 +3,7 @@ using DomainServices;
 using EB_WebAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Sockets;
 
 namespace EB_WebAPI.Controllers
 {
@@ -39,9 +40,29 @@ namespace EB_WebAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult<MealBox> CreateMealBox(MealBox mealBox)
+        public ActionResult<MealBox> CreateMealBox(NewMealBoxDTOWithoutReservation mealBox)
         {
-            return _mealBoxRepository.CreateMealBox(mealBox);
+            List<Product> products = new List<Product>();
+            foreach (var p in mealBox.Products)
+            {
+                products.Add(new Product { Id = p.Id, Name = p.Name, ContainsAlcohol = p.ContainsAlcohol, ImgUrl = p.ImgUrl });
+            }
+
+            MealBox? newMealBox = new MealBox
+            {
+                Name = mealBox.Name,
+                City = mealBox.City,
+                PickupFromTime = mealBox.PickupFromTime,
+                PickupUntilTime = mealBox.PickupUntilTime,
+                Price = mealBox.Price,
+                IsEighteen = mealBox.IsEighteen,
+                Type = mealBox.Type,
+                IsWarm = mealBox.IsWarm,
+                Cantina = mealBox.Cantina,
+                Products = products
+            };
+
+            return _mealBoxRepository.CreateMealBox(newMealBox);
         }
 
         [HttpPut]

@@ -95,6 +95,8 @@ namespace EB_EF
             //LA 2 zonder alcohol
             MealBox MealBox1 = new MealBox { Name = "Spinazie Pakket", Cantina = Cantina1, City = Cantina1.City, IsEighteen = false, Type = MealType.Groente, IsWarm = true, Price = 7.99, PickupFromTime = DateTime.Now, PickupUntilTime = DateTime.Now.AddHours(10), Products = new List<Product>() };
             MealBox MealBox2 = new MealBox { Name = "Gezond Lunch Pakket", Cantina = Cantina1, City = Cantina1.City, IsEighteen = false, Type = MealType.Lunch, IsWarm = false, Price = 6.99, PickupFromTime = DateTime.Now, PickupUntilTime = DateTime.Now.AddHours(10), Products = new List<Product>() };
+            MealBox MealBox6 = new MealBox { Name = "Pizza Pakket", Cantina = Cantina1, City = Cantina1.City, IsEighteen = false, Type = MealType.Snack, IsWarm = true, Price = 7.99, PickupFromTime = DateTime.Now, PickupUntilTime = DateTime.Now.AddHours(10), Products = new List<Product>() };
+            MealBox MealBox7 = new MealBox { Name = "Friet Pakket", Cantina = Cantina1, City = Cantina1.City, IsEighteen = false, Type = MealType.Snack, IsWarm = true, Price = 6.99, PickupFromTime = DateTime.Now, PickupUntilTime = DateTime.Now.AddDays(1), Products = new List<Product>() };
 
             //TLD 2 zonder alcohol
             MealBox MealBox3 = new MealBox { Name = "Koude Soep Pakket", Cantina = Cantina5, City = Cantina5.City, IsEighteen = false, Type = MealType.Groente, IsWarm = false, Price = 4.99, PickupFromTime = DateTime.Now, PickupUntilTime = DateTime.Now.AddHours(10), Products = new List<Product>() };
@@ -111,6 +113,8 @@ namespace EB_EF
                 MealBox3,
                 MealBox4,
                 MealBox5,
+                MealBox6,
+                MealBox7,
             });
 
             _context.SaveChanges();
@@ -132,6 +136,11 @@ namespace EB_EF
                 new MealBoxProduct { MealBoxId = MealBox5.Id, ProductId = Product5.Id},
                 new MealBoxProduct { MealBoxId = MealBox5.Id, ProductId = Product8.Id},
                 new MealBoxProduct { MealBoxId = MealBox5.Id, ProductId = Product10.Id},
+
+                new MealBoxProduct { MealBoxId = MealBox6.Id, ProductId = Product9.Id},
+
+                new MealBoxProduct { MealBoxId = MealBox7.Id, ProductId = Product7.Id},
+                new MealBoxProduct { MealBoxId = MealBox7.Id, ProductId = Product8.Id},
             });
 
             Employee Employee1 = new Employee { EmployeeNr = "123456789", Cantina = Cantina1, FirstName = "Jan", LastName = "De Ruiter" };
