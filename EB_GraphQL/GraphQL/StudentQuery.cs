@@ -13,9 +13,9 @@ namespace EB_GraphQL.GraphQL
             _studentRepository = studentRepository;
         }
 
-        public Student? GetStudentByEmail(string EmailAddress)
+        public Student? GetStudentByEmail(string emailAddress)
         {
-            return _studentRepository.GetStudentByEmail(EmailAddress);
+            return _studentRepository.GetStudentByEmail(emailAddress);
         }
     }
 }
