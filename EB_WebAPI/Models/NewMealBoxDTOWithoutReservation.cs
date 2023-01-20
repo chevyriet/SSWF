@@ -7,8 +7,6 @@ namespace EB_WebAPI.Models
     {
         public int Id { get; set; }
 
-        public List<NewProductDTO> NewProductDTOs { get; set; }
-
         [Required(ErrorMessage = "Naam is verplicht")]
         public string Name { get; set; }
 
