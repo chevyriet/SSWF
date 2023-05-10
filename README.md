@@ -22,6 +22,7 @@ Share a Meal is a full-stack web application written primarily in C# using the A
 - C#
 - ASP.NET Core MVC
 - Entity Framework
+- SQL
 - XUnit
 - Moq
 - Swagger
